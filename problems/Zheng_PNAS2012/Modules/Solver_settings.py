@@ -9,6 +9,16 @@ T_PREEQUIL = 1e5
 T_OBSERVE = 25.0          # last measurement, h after the switch
 
 
+# Solver backend: "roadrunner", "amici" or "auto" (the stage default).  Overridden by
+# `Model_run.py --backend` and by the PYANTIGEN_BACKEND environment variable.
+BACKEND = "auto"
+# Where AMICI keeps compiled models.  None: PYANTIGEN_AMICI_CACHE, else ~/.cache/pyantigen/amici_models.
+AMICI_CACHE_DIR = None
+# How a data-floored block gets its sigma ("auto" picks "fixed" for AMICI multistart/profile/FIM).
+# Zheng declares no floors, so this changes nothing here.
+SIGMA_FLOOR = "auto"
+
+
 def make_solver_settings(blocks, abs_tol=1e-10, rel_tol=1e-10, max_steps=200000):
     """Factory for solver settings dicts."""
     return {

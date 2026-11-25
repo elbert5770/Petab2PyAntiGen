@@ -69,4 +69,16 @@ Expect agreement of ~1e-8 or better. `tests/test_zheng.py` is the template for a
 * **Import order in `Model_run.py`:** `import AntiGen_paths` before `Modules`, because the
   modules import `antimony_modules` and `AntiGen_paths` puts the repository root on `sys.path`.
 * **libsbml:** a `Model` dangles once its `SBMLDocument` is garbage collected; keep the document.
+* **AMICI (WSL):** put `/opt/venv/bin` first on `PATH` (SWIG 4.5.1 must match the one AMICI was built with;
+  the system SWIG 4.2.0 gives "SwigPyObject has no attribute module" at load), and the PyAntiGen checkout on
+  `PYTHONPATH`. Nelder-Mead ignores `analytic_gradient`; use L-BFGS-B (LM additionally needs known sigmas).
+  A spec with `analytic_gradient` runs on AMICI without `--backend`.
+  Levenberg-Marquardt (`ZhengLM`) is least squares, so every sigma must be declared (`sigma_method: "fixed"`); with a
+  profiled or pooled sigma it stops at "no evaluable start". L-BFGS-B keeps the concentrated likelihood.
+  Observables that are bare result columns (`observable_K27me0K36me0`) get an exact chain-rule gradient; an
+  expression (`SF*pred`) or a callable observable falls back to ~600 finite-difference loss evaluations per gradient
+  (~1.9 s on Zheng). Prefer assignment rules in the model over expressions in the loss config.
+* **Direct AMICI as a yardstick:** `benchmarks/amici_direct_zheng.py` runs the untouched PEtab problem through AMICI
+  (59 s for the Zheng fit); `benchmarks/run_all_fits.sh` + `compare_fits.py` score every route with PEtab's own objective. PEtab's explicit `sigma` must start near its ML value or the joint fit stalls; PyAntiGen's
+  profiled (concentrated) sigma has no such problem.
 * **`six`** is needed by Tellurium but no longer declared by it (it is in requirements.txt).

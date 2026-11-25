@@ -76,5 +76,46 @@ random parameters, and the objective at the nominal parameters is PEtab's: one p
 0.0023395, -log L = -278.3335 (the engine prints -363.47, the same number without the
 constant n/2 (1 + ln 2 pi)).
 
+### AMICI (WSL)
+
+AMICI does not run on native Windows. In WSL (the default `ubuntu-amici` distro has `/opt/venv` with AMICI 1.1.0
+and the toolchain) run the same project with the venv first on `PATH`, so that AMICI's own SWIG (4.5.1) is used,
+not the system one (4.2.0, which compiles a model that then fails to load), and the PyAntiGen checkout on `PYTHONPATH`:
+
+```bash
+export PATH=/opt/venv/bin:$PATH PYTHONPATH=/mnt/c/Users/elber/Documents/git/PyAntiGen
+cd /mnt/c/Users/elber/Documents/git/Petab2PyAntiGen/problems/Zheng_PNAS2012
+python Model_run.py --simulate Zheng --backend amici --compare   # AMICI vs RoadRunner: 1e-7 relative
+python Model_run.py --optimize ZhengAMICI                        # L-BFGS-B with the analytic gradient
+python Model_run.py --optimize ZhengLM                           # Levenberg-Marquardt (sigma declared: LM needs known sigmas)
+```
+
+The model compiles in about a minute (cached in `~/.cache/pyantigen/amici_models`). The AMICI trajectories
+agree with RoadRunner to 1.1e-7 relative, including the 1e5 h pre-equilibration and the event.
+
+### Comparing the routes
+
+`benchmarks/` fits Zheng by every route from the same perturbed start (seed 1) and scores each fitted parameter vector
+with one objective, PEtab's own (SBML + tables, RoadRunner, steady-state pre-equilibration), so the routes are compared on the
+same footing whatever engine produced them:
+
+```bash
+benchmarks/run_all_fits.sh                 # WSL/Linux: the four fits (about 5 minutes in total), writes benchmarks/fits/*.json
+python benchmarks/compare_fits.py          # any platform: writes benchmarks/COMPARISON.md and comparison.png
+```
+
+* **`benchmarks/COMPARISON.md`** is the table (evaluations, wall-clock, NLL under the PEtab reference, how far the
+  parameters moved from PEtab's published ones); **`benchmarks/comparison.png`** plots time against fit quality.
+* **`benchmarks/fits/<route>.json`** holds each route's fitted parameters, so a route can be re-scored or compared pairwise.
+* The routes: PyAntiGen on RoadRunner (Nelder-Mead), PyAntiGen on AMICI (L-BFGS-B with the gradient; Levenberg-Marquardt
+  with sigma declared), and PEtab straight through AMICI with no PyAntiGen (`amici_direct_zheng.py`).
+* Single-model checks: `Model_run.py --simulate Zheng --backend amici --compare` prints AMICI against RoadRunner column by
+  column (1.1e-7 relative); `python -m petab2pyantigen verify ...` compares PyAntiGen with the PEtab reference.
+
+PyAntiGen's AMICI gradient used to be assembled from ~580 finite-difference re-evaluations of its Python loss (1.9 s) and a
+15-panel progress figure was redrawn at every improvement; AMICI itself was under 2% of the time. PyAntiGen now takes the
+exact chain-rule gradient (and Levenberg-Marquardt Jacobian) for observables that are bare result columns, and draws the
+progress figure once, when the fit ends (`PYANTIGEN_PROGRESS_FIGURE=live` brings back the refreshing one).
+
 Rate constants are named as in PEtab (`k00_01` = K27me0K36me0 -> K27me0K36me1); the 15 observables
 are `observable_K27me<a>K36me<b>`.

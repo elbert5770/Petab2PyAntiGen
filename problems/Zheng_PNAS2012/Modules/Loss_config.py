@@ -9,6 +9,21 @@ def no_optimization(replicate):
     return {}
 
 
+# PEtab's own estimate of sigma (parameters.tsv nominalValue). Levenberg-Marquardt needs every sigma known: the loss is then
+# const + 0.5 r.r.  The minimum over the rate constants is the same as with a profiled sigma (it minimizes the same SSE);
+# only the value of the objective and the uncertainty estimates differ.
+PETAB_SIGMA = 0.002339466852399
+
+
+def Zheng_loss_config_known_sigma(replicate):
+    """As Zheng_loss_config, but with sigma declared instead of estimated (needed by method "LM")."""
+    lc = Zheng_loss_config(replicate)
+    for o in lc["observables"]:
+        o.pop("sigma_pool", None)
+        o.update({"sigma_method": "fixed", "sigma_value": PETAB_SIGMA})
+    return lc
+
+
 def Zheng_loss_config(replicate):
     """The 15 observables of PEtab's observables.tsv: each state as a fraction of total H3, normal noise."""
     label = replicate["Label"]
