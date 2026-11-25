@@ -12,17 +12,9 @@ from dataclasses import dataclass, field
 
 @dataclass
 class Experiment:
+    # Which replicates are fitted together, and how their losses are weighted, is a property of the optimization:
+    # Optimization.groups in Optimizer_settings.py. The experiment only says what can be simulated.
     replicates: dict = field(default_factory=dict)
-
-    @property
-    def opt_groups(self):
-        """Return {opt_group: [replicate_key, ...]} by scanning replicates."""
-        groups = {}
-        for key, rep in self.replicates.items():
-            og = rep.get("Opt_group")
-            if og is not None:
-                groups.setdefault(og, []).append(key)
-        return groups
 
 
 def make_replicate(config, **meta):
@@ -41,7 +33,6 @@ def _build_experiment():
         "Solver_settings":       solver_settings_Zheng,
         "Update_opt_parameters": update_opt_no_parameters,
         "Update_parameters":     update_no_parameters,
-        "Opt_group":             "Zheng",
     })
     return exp
 

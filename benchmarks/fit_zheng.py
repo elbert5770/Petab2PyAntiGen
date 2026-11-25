@@ -42,10 +42,14 @@ def main(argv=None):
     ap.add_argument("--seed", type=int, default=1, help="start perturbation (0: PEtab's nominal point)")
     ap.add_argument("--max-evals", type=int, default=None, help="evaluation budget (default: the spec's)")
     ap.add_argument("--backend", default=None, choices=["roadrunner", "amici", "auto"])
-    ap.add_argument("--no-exact", action="store_true", help="finite-difference gradient/Jacobian instead of the chain rule")
+    ap.add_argument("--no-exact", action="store_true", help="finite differences of the whole loss instead of the chain rule")
+    ap.add_argument("--observables", choices=["column", "callable"], default="column",
+                    help="column: bare result columns; callable: the same numbers from a function of the table, which the "
+                         "engine cannot take as a bare column (as a difference of simulations is not)")
     ap.add_argument("--note", default="")
     args = ap.parse_args(argv)
 
+    os.environ["ZHENG_OBSERVABLES"] = args.observables
     os.chdir(PROJECT)
     sys.path.insert(0, str(PROJECT))
     sys.path.insert(0, str(ROOT))
@@ -89,7 +93,10 @@ def main(argv=None):
     result = {
         "label": args.label, "route": f"PyAntiGen / {backend} / {spec.method}", "spec": args.spec,
         "backend": backend, "method": spec.method, "sigma": "declared" if known else "profiled",
-        "exact_derivatives": not args.no_exact, "seed": args.seed, "note": args.note,
+        "exact_derivatives": not args.no_exact, "observables": args.observables,
+        "derivatives": ("finite differences of the whole loss" if args.no_exact else
+                        "chain rule, exact" if args.observables == "column" else "chain rule, observable differenced"),
+        "seed": args.seed, "note": args.note,
         "params": dict(zip(spec.param_names, [float(v) for v in np.asarray(opt["x"], dtype=float)])),
         "objective": float(opt["fun"]), "success": bool(opt["success"]), "message": str(opt["message"]),
         "nfev": opt.get("nfev"), "nit": opt.get("nit"), "wall_s": round(wall, 1),

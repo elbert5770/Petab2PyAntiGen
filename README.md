@@ -116,15 +116,19 @@ python benchmarks/compare_fits.py          # any platform: writes benchmarks/COM
 * **`benchmarks/COMPARISON.md`** is the table (evaluations, wall-clock, NLL under the PEtab reference, how far the
   parameters moved from PEtab's published ones); **`benchmarks/comparison.png`** plots time against fit quality.
 * **`benchmarks/fits/<route>.json`** holds each route's fitted parameters, so a route can be re-scored or compared pairwise.
-* The routes: PyAntiGen on RoadRunner (Nelder-Mead), PyAntiGen on AMICI (L-BFGS-B with the gradient; Levenberg-Marquardt
-  with sigma declared), and PEtab straight through AMICI with no PyAntiGen (`amici_direct_zheng.py`).
+* The routes: PyAntiGen on RoadRunner (Nelder-Mead), PyAntiGen on AMICI (L-BFGS-B with the gradient; Levenberg-Marquardt with
+  sigma declared), and PEtab straight through AMICI with no PyAntiGen (`amici_direct_zheng.py`). The LM fit is run three ways,
+  because the derivative route depends on the observables: **bare result columns** (Zheng's own: exact chain rule, 48 s),
+  **callables of the table** (not bare, as a difference of simulations is: only the observable is differenced, 67 s) and
+  **finite differences of the whole loss** (what non-bare observables took before, 294-303 s). All three converge to the same
+  NLL. Zheng has 45 parameters; a model with 9-18 has proportionally fewer loss passes in the old route, so its saving is smaller.
 * Single-model checks: `Model_run.py --simulate Zheng --backend amici --compare` prints AMICI against RoadRunner column by
   column (1.1e-7 relative); `python -m petab2pyantigen verify ...` compares PyAntiGen with the PEtab reference.
 
 PyAntiGen's AMICI gradient used to be assembled from ~580 finite-difference re-evaluations of its Python loss (1.9 s) and a
 15-panel progress figure was redrawn at every improvement; AMICI itself was under 2% of the time. PyAntiGen now takes the
-exact chain-rule gradient (and Levenberg-Marquardt Jacobian) for observables that are bare result columns, and draws the
-progress figure once, when the fit ends (`PYANTIGEN_PROGRESS_FIGURE=live` brings back the refreshing one).
+chain-rule gradient (and Levenberg-Marquardt Jacobian): exact for observables that are bare result columns, and with only the
+observable (or, for a composite, its aggregation) differenced otherwise; it draws the progress figure once, when the fit ends (`PYANTIGEN_PROGRESS_FIGURE=live` brings back the refreshing one).
 
 Rate constants are named as in PEtab (`k00_01` = K27me0K36me0 -> K27me0K36me1); the 15 observables
 are `observable_K27me<a>K36me<b>`.
