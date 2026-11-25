@@ -76,6 +76,15 @@ random parameters, and the objective at the nominal parameters is PEtab's: one p
 0.0023395, -log L = -278.3335 (the engine prints -363.47, the same number without the
 constant n/2 (1 + ln 2 pi)).
 
+### How much does it compress?
+
+`python benchmarks/compression_zheng.py` writes `benchmarks/COMPRESSION.md` and `compression.png`: the model (SBML, Tellurium's
+Antimony, the Antimony PyAntiGen generates, the module that generates it) and, separately, the estimation problem (each PEtab
+table against the PyAntiGen files that replace it), by bytes, code lines and gzip, with the module's growth from a 2 x 2 to a
+12 x 12 lattice. In short: the module is 31x smaller than the SBML (8x after gzip) and does not grow with the system; the
+generated Antimony is no shorter than Tellurium's; the estimation problem is about the same size in bytes as PEtab's tables
+(48 code lines state it, against 156 table lines) and larger for conditions.
+
 ### AMICI (WSL)
 
 AMICI does not run on native Windows. In WSL (the default `ubuntu-amici` distro has `/opt/venv` with AMICI 1.1.0

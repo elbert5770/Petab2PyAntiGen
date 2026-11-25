@@ -13,7 +13,14 @@ definition.  Here it is three loops.
 from pyantigen.generate.module_base import PyAntiGenModule
 
 N_ME = 4                                                       # me0 .. me3 per lysine
-STATES = [(a, b) for a in range(N_ME) for b in range(N_ME) if (a, b) != (3, 3)]
+
+
+def lattice(n=N_ME):
+    """The (K27, K36) methylation states of an n x n lattice; the fully methylated corner is not observed."""
+    return [(a, b) for a in range(n) for b in range(n) if (a, b) != (n - 1, n - 1)]
+
+
+STATES = lattice()
 
 
 def state(a, b):
