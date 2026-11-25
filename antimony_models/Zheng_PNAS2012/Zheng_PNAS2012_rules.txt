@@ -1,0 +1,17 @@
+inflow := inflowp * dilution
+H3_total := K27me0K36me0_Default + K27me0K36me1_Default + K27me0K36me2_Default + K27me0K36me3_Default + K27me1K36me0_Default + K27me1K36me1_Default + K27me1K36me2_Default + K27me1K36me3_Default + K27me2K36me0_Default + K27me2K36me1_Default + K27me2K36me2_Default + K27me2K36me3_Default + K27me3K36me0_Default + K27me3K36me1_Default + K27me3K36me2_Default
+observable_K27me0K36me0 := K27me0K36me0_Default / H3_total
+observable_K27me0K36me1 := K27me0K36me1_Default / H3_total
+observable_K27me0K36me2 := K27me0K36me2_Default / H3_total
+observable_K27me0K36me3 := K27me0K36me3_Default / H3_total
+observable_K27me1K36me0 := K27me1K36me0_Default / H3_total
+observable_K27me1K36me1 := K27me1K36me1_Default / H3_total
+observable_K27me1K36me2 := K27me1K36me2_Default / H3_total
+observable_K27me1K36me3 := K27me1K36me3_Default / H3_total
+observable_K27me2K36me0 := K27me2K36me0_Default / H3_total
+observable_K27me2K36me1 := K27me2K36me1_Default / H3_total
+observable_K27me2K36me2 := K27me2K36me2_Default / H3_total
+observable_K27me2K36me3 := K27me2K36me3_Default / H3_total
+observable_K27me3K36me0 := K27me3K36me0_Default / H3_total
+observable_K27me3K36me1 := K27me3K36me1_Default / H3_total
+observable_K27me3K36me2 := K27me3K36me2_Default / H3_total

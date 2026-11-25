@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "petab2pyantigen"
+version = "0.1.0"
+description = "Replace PEtab problems with compact PyAntiGen projects, and check the replacement against PEtab"
+requires-python = ">=3.11"
+dependencies = ["PyAntiGen>=2.1.6", "tellurium", "libroadrunner", "python-libsbml", "pandas", "numpy", "PyYAML"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.setuptools.packages.find]
+include = ["petab2pyantigen*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

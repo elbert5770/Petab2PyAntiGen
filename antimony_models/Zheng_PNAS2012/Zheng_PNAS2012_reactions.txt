@@ -1,0 +1,78 @@
+compartment Default := V_Default
+
+substanceOnly species K27me0K36me0_Default in Default
+substanceOnly species K27me0K36me1_Default in Default
+substanceOnly species K27me0K36me2_Default in Default
+substanceOnly species K27me0K36me3_Default in Default
+substanceOnly species K27me1K36me0_Default in Default
+substanceOnly species K27me1K36me1_Default in Default
+substanceOnly species K27me1K36me2_Default in Default
+substanceOnly species K27me1K36me3_Default in Default
+substanceOnly species K27me2K36me0_Default in Default
+substanceOnly species K27me2K36me1_Default in Default
+substanceOnly species K27me2K36me2_Default in Default
+substanceOnly species K27me2K36me3_Default in Default
+substanceOnly species K27me3K36me0_Default in Default
+substanceOnly species K27me3K36me1_Default in Default
+substanceOnly species K27me3K36me2_Default in Default
+
+Methylation_K27me0K36me0_K27me1K36me0_Default_fwd : K27me0K36me0_Default -> K27me1K36me0_Default; k00_10 * (K27me0K36me0_Default/V_Default) * V_Default
+Methylation_K27me0K36me0_K27me1K36me0_Default_rev : K27me1K36me0_Default -> K27me0K36me0_Default; k10_00 * (K27me1K36me0_Default/V_Default) * V_Default
+Methylation_K27me0K36me0_K27me0K36me1_Default_fwd : K27me0K36me0_Default -> K27me0K36me1_Default; k00_01 * (K27me0K36me0_Default/V_Default) * V_Default
+Methylation_K27me0K36me0_K27me0K36me1_Default_rev : K27me0K36me1_Default -> K27me0K36me0_Default; k01_00 * (K27me0K36me1_Default/V_Default) * V_Default
+Methylation_K27me0K36me1_K27me1K36me1_Default_fwd : K27me0K36me1_Default -> K27me1K36me1_Default; k01_11 * (K27me0K36me1_Default/V_Default) * V_Default
+Methylation_K27me0K36me1_K27me1K36me1_Default_rev : K27me1K36me1_Default -> K27me0K36me1_Default; k11_01 * (K27me1K36me1_Default/V_Default) * V_Default
+Methylation_K27me0K36me1_K27me0K36me2_Default_fwd : K27me0K36me1_Default -> K27me0K36me2_Default; k01_02 * (K27me0K36me1_Default/V_Default) * V_Default
+Methylation_K27me0K36me1_K27me0K36me2_Default_rev : K27me0K36me2_Default -> K27me0K36me1_Default; k02_01 * (K27me0K36me2_Default/V_Default) * V_Default
+Methylation_K27me0K36me2_K27me1K36me2_Default_fwd : K27me0K36me2_Default -> K27me1K36me2_Default; k02_12 * (K27me0K36me2_Default/V_Default) * V_Default
+Methylation_K27me0K36me2_K27me1K36me2_Default_rev : K27me1K36me2_Default -> K27me0K36me2_Default; k12_02 * (K27me1K36me2_Default/V_Default) * V_Default
+Methylation_K27me0K36me2_K27me0K36me3_Default_fwd : K27me0K36me2_Default -> K27me0K36me3_Default; k02_03 * (K27me0K36me2_Default/V_Default) * V_Default
+Methylation_K27me0K36me2_K27me0K36me3_Default_rev : K27me0K36me3_Default -> K27me0K36me2_Default; k03_02 * (K27me0K36me3_Default/V_Default) * V_Default
+Methylation_K27me0K36me3_K27me1K36me3_Default_fwd : K27me0K36me3_Default -> K27me1K36me3_Default; k03_13 * (K27me0K36me3_Default/V_Default) * V_Default
+Methylation_K27me0K36me3_K27me1K36me3_Default_rev : K27me1K36me3_Default -> K27me0K36me3_Default; k13_03 * (K27me1K36me3_Default/V_Default) * V_Default
+Methylation_K27me1K36me0_K27me2K36me0_Default_fwd : K27me1K36me0_Default -> K27me2K36me0_Default; k10_20 * (K27me1K36me0_Default/V_Default) * V_Default
+Methylation_K27me1K36me0_K27me2K36me0_Default_rev : K27me2K36me0_Default -> K27me1K36me0_Default; k20_10 * (K27me2K36me0_Default/V_Default) * V_Default
+Methylation_K27me1K36me0_K27me1K36me1_Default_fwd : K27me1K36me0_Default -> K27me1K36me1_Default; k10_11 * (K27me1K36me0_Default/V_Default) * V_Default
+Methylation_K27me1K36me0_K27me1K36me1_Default_rev : K27me1K36me1_Default -> K27me1K36me0_Default; k11_10 * (K27me1K36me1_Default/V_Default) * V_Default
+Methylation_K27me1K36me1_K27me2K36me1_Default_fwd : K27me1K36me1_Default -> K27me2K36me1_Default; k11_21 * (K27me1K36me1_Default/V_Default) * V_Default
+Methylation_K27me1K36me1_K27me2K36me1_Default_rev : K27me2K36me1_Default -> K27me1K36me1_Default; k21_11 * (K27me2K36me1_Default/V_Default) * V_Default
+Methylation_K27me1K36me1_K27me1K36me2_Default_fwd : K27me1K36me1_Default -> K27me1K36me2_Default; k11_12 * (K27me1K36me1_Default/V_Default) * V_Default
+Methylation_K27me1K36me1_K27me1K36me2_Default_rev : K27me1K36me2_Default -> K27me1K36me1_Default; k12_11 * (K27me1K36me2_Default/V_Default) * V_Default
+Methylation_K27me1K36me2_K27me2K36me2_Default_fwd : K27me1K36me2_Default -> K27me2K36me2_Default; k12_22 * (K27me1K36me2_Default/V_Default) * V_Default
+Methylation_K27me1K36me2_K27me2K36me2_Default_rev : K27me2K36me2_Default -> K27me1K36me2_Default; k22_12 * (K27me2K36me2_Default/V_Default) * V_Default
+Methylation_K27me1K36me2_K27me1K36me3_Default_fwd : K27me1K36me2_Default -> K27me1K36me3_Default; k12_13 * (K27me1K36me2_Default/V_Default) * V_Default
+Methylation_K27me1K36me2_K27me1K36me3_Default_rev : K27me1K36me3_Default -> K27me1K36me2_Default; k13_12 * (K27me1K36me3_Default/V_Default) * V_Default
+Methylation_K27me1K36me3_K27me2K36me3_Default_fwd : K27me1K36me3_Default -> K27me2K36me3_Default; k13_23 * (K27me1K36me3_Default/V_Default) * V_Default
+Methylation_K27me1K36me3_K27me2K36me3_Default_rev : K27me2K36me3_Default -> K27me1K36me3_Default; k23_13 * (K27me2K36me3_Default/V_Default) * V_Default
+Methylation_K27me2K36me0_K27me3K36me0_Default_fwd : K27me2K36me0_Default -> K27me3K36me0_Default; k20_30 * (K27me2K36me0_Default/V_Default) * V_Default
+Methylation_K27me2K36me0_K27me3K36me0_Default_rev : K27me3K36me0_Default -> K27me2K36me0_Default; k30_20 * (K27me3K36me0_Default/V_Default) * V_Default
+Methylation_K27me2K36me0_K27me2K36me1_Default_fwd : K27me2K36me0_Default -> K27me2K36me1_Default; k20_21 * (K27me2K36me0_Default/V_Default) * V_Default
+Methylation_K27me2K36me0_K27me2K36me1_Default_rev : K27me2K36me1_Default -> K27me2K36me0_Default; k21_20 * (K27me2K36me1_Default/V_Default) * V_Default
+Methylation_K27me2K36me1_K27me3K36me1_Default_fwd : K27me2K36me1_Default -> K27me3K36me1_Default; k21_31 * (K27me2K36me1_Default/V_Default) * V_Default
+Methylation_K27me2K36me1_K27me3K36me1_Default_rev : K27me3K36me1_Default -> K27me2K36me1_Default; k31_21 * (K27me3K36me1_Default/V_Default) * V_Default
+Methylation_K27me2K36me1_K27me2K36me2_Default_fwd : K27me2K36me1_Default -> K27me2K36me2_Default; k21_22 * (K27me2K36me1_Default/V_Default) * V_Default
+Methylation_K27me2K36me1_K27me2K36me2_Default_rev : K27me2K36me2_Default -> K27me2K36me1_Default; k22_21 * (K27me2K36me2_Default/V_Default) * V_Default
+Methylation_K27me2K36me2_K27me3K36me2_Default_fwd : K27me2K36me2_Default -> K27me3K36me2_Default; k22_32 * (K27me2K36me2_Default/V_Default) * V_Default
+Methylation_K27me2K36me2_K27me3K36me2_Default_rev : K27me3K36me2_Default -> K27me2K36me2_Default; k32_22 * (K27me3K36me2_Default/V_Default) * V_Default
+Methylation_K27me2K36me2_K27me2K36me3_Default_fwd : K27me2K36me2_Default -> K27me2K36me3_Default; k22_23 * (K27me2K36me2_Default/V_Default) * V_Default
+Methylation_K27me2K36me2_K27me2K36me3_Default_rev : K27me2K36me3_Default -> K27me2K36me2_Default; k23_22 * (K27me2K36me3_Default/V_Default) * V_Default
+Methylation_K27me3K36me0_K27me3K36me1_Default_fwd : K27me3K36me0_Default -> K27me3K36me1_Default; k30_31 * (K27me3K36me0_Default/V_Default) * V_Default
+Methylation_K27me3K36me0_K27me3K36me1_Default_rev : K27me3K36me1_Default -> K27me3K36me0_Default; k31_30 * (K27me3K36me1_Default/V_Default) * V_Default
+Methylation_K27me3K36me1_K27me3K36me2_Default_fwd : K27me3K36me1_Default -> K27me3K36me2_Default; k31_32 * (K27me3K36me1_Default/V_Default) * V_Default
+Methylation_K27me3K36me1_K27me3K36me2_Default_rev : K27me3K36me2_Default -> K27me3K36me1_Default; k32_31 * (K27me3K36me2_Default/V_Default) * V_Default
+Inflow_K27me0K36me0_Default : -> K27me0K36me0_Default; inflow * V_Default
+Dilution_K27me0K36me0_Default : K27me0K36me0_Default ->; inflow * (K27me0K36me0_Default/V_Default) * V_Default
+Dilution_K27me0K36me1_Default : K27me0K36me1_Default ->; inflow * (K27me0K36me1_Default/V_Default) * V_Default
+Dilution_K27me0K36me2_Default : K27me0K36me2_Default ->; inflow * (K27me0K36me2_Default/V_Default) * V_Default
+Dilution_K27me0K36me3_Default : K27me0K36me3_Default ->; inflow * (K27me0K36me3_Default/V_Default) * V_Default
+Dilution_K27me1K36me0_Default : K27me1K36me0_Default ->; inflow * (K27me1K36me0_Default/V_Default) * V_Default
+Dilution_K27me1K36me1_Default : K27me1K36me1_Default ->; inflow * (K27me1K36me1_Default/V_Default) * V_Default
+Dilution_K27me1K36me2_Default : K27me1K36me2_Default ->; inflow * (K27me1K36me2_Default/V_Default) * V_Default
+Dilution_K27me1K36me3_Default : K27me1K36me3_Default ->; inflow * (K27me1K36me3_Default/V_Default) * V_Default
+Dilution_K27me2K36me0_Default : K27me2K36me0_Default ->; inflow * (K27me2K36me0_Default/V_Default) * V_Default
+Dilution_K27me2K36me1_Default : K27me2K36me1_Default ->; inflow * (K27me2K36me1_Default/V_Default) * V_Default
+Dilution_K27me2K36me2_Default : K27me2K36me2_Default ->; inflow * (K27me2K36me2_Default/V_Default) * V_Default
+Dilution_K27me2K36me3_Default : K27me2K36me3_Default ->; inflow * (K27me2K36me3_Default/V_Default) * V_Default
+Dilution_K27me3K36me0_Default : K27me3K36me0_Default ->; inflow * (K27me3K36me0_Default/V_Default) * V_Default
+Dilution_K27me3K36me1_Default : K27me3K36me1_Default ->; inflow * (K27me3K36me1_Default/V_Default) * V_Default
+Dilution_K27me3K36me2_Default : K27me3K36me2_Default ->; inflow * (K27me3K36me2_Default/V_Default) * V_Default

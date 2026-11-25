@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+*.log
+pip_out.txt
+pip_err.txt
+# Model_generate lock
+.model_generate.lock
+# Written by Model_generate.py / Model_run.py; rebuilt on every run
+generated/
+results/
+SBML_models/
+*.egg-info/
