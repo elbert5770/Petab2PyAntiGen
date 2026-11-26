@@ -1,0 +1,18 @@
+Parameter,Value,Units,Comment
+V_Membrane,1.0,,volume of compartment membrane
+k1,3.72721095730996,,
+k2,99999.9999999908,,
+k3,15.7453406923706,,
+k4,99938.2576283144,,
+k_1,0.923924728172173,,
+k_2,0.001002494725324,,
+k_3,1.91463005974811,,
+k_4,3079.20732487903,,
+l2,0.940077018858089,,
+l4,2.85837713545253,,
+l6,99999.9999999908,,
+l_2,0.347664459128102,,
+l_4,0.01388020361713,,
+l_6,0.001,,
+Ca,10.0,,"set per replicate: the condition's Ca2+, uM"
+IP3,0.0,,"set per replicate (Update_parameters.py): the condition's IP3, uM"

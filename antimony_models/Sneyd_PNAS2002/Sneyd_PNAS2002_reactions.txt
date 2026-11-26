@@ -1,0 +1,19 @@
+compartment Membrane := V_Membrane
+
+substanceOnly species IPR_A_Membrane in Membrane
+substanceOnly species IPR_I1_Membrane in Membrane
+substanceOnly species IPR_I2_Membrane in Membrane
+substanceOnly species IPR_O_Membrane in Membrane
+substanceOnly species IPR_R_Membrane in Membrane
+substanceOnly species IPR_S_Membrane in Membrane
+
+IPR_O_to_IPR_R_Membrane : IPR_O_Membrane -> IPR_R_Membrane; ((k_2 + l_4 * Ca) / (1 + Ca / L5)) * (IPR_O_Membrane/V_Membrane) * V_Membrane
+IPR_R_to_IPR_O_Membrane : IPR_R_Membrane -> IPR_O_Membrane; ((k2 * L3 + l4 * Ca) / (L3 + Ca * (1 + L3 / L1)) * IP3) * (IPR_R_Membrane/V_Membrane) * V_Membrane
+IPR_R_to_IPR_I1_Membrane : IPR_R_Membrane -> IPR_I1_Membrane; ((k1 * L1 + l2) * Ca / (L1 + Ca * (1 + L1 / L3))) * (IPR_R_Membrane/V_Membrane) * V_Membrane
+IPR_I1_to_IPR_R_Membrane : IPR_I1_Membrane -> IPR_R_Membrane; (k_1 + l_2) * (IPR_I1_Membrane/V_Membrane) * V_Membrane
+IPR_O_to_IPR_A_Membrane : IPR_O_Membrane -> IPR_A_Membrane; ((k4 * L5 + l6) * Ca / (L5 + Ca)) * (IPR_O_Membrane/V_Membrane) * V_Membrane
+IPR_A_to_IPR_O_Membrane : IPR_A_Membrane -> IPR_O_Membrane; (L1 * (k_4 + l_6) / (L1 + Ca)) * (IPR_A_Membrane/V_Membrane) * V_Membrane
+IPR_A_to_IPR_I2_Membrane : IPR_A_Membrane -> IPR_I2_Membrane; ((k1 * L1 + l2) * Ca / (L1 + Ca)) * (IPR_A_Membrane/V_Membrane) * V_Membrane
+IPR_I2_to_IPR_A_Membrane : IPR_I2_Membrane -> IPR_A_Membrane; (k_1 + l_2) * (IPR_I2_Membrane/V_Membrane) * V_Membrane
+IPR_O_to_IPR_S_Membrane : IPR_O_Membrane -> IPR_S_Membrane; (k3 * L5 / (L5 + Ca)) * (IPR_O_Membrane/V_Membrane) * V_Membrane
+IPR_S_to_IPR_O_Membrane : IPR_S_Membrane -> IPR_O_Membrane; (k_3) * (IPR_S_Membrane/V_Membrane) * V_Membrane

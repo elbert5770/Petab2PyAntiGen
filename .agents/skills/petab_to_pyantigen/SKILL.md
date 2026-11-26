@@ -101,3 +101,40 @@ Expect agreement of ~1e-8 or better. `tests/test_zheng.py` is the template for a
   gradient failed N time(s)": look for that line). Both are fixed in PyAntiGen; check the log of any AMICI fit for it.
 * **The reference must apply the first condition before the initial state is evaluated** (`reference.simulate_petab` does).
 * **Several optima:** one start per route ends at different points; compare objective values, not only times.
+
+## 7. Pitfalls found on Weber_BMC2015 (scale parameters, fixed noise, clock-driven inputs)
+
+* **Observable scale parameters** (`observableFormula = signal * observableParameter1_y`, with `observableParameters` naming a
+  fitted `scale_y`): write the observable as an assignment rule of the module (`yPKDpN0 := PKDDAGa_Cyt * scale_yPKDpN0`) and make
+  `scale_y` an ordinary model parameter. It is fitted by name, with no hook. `reference.simulate_petab` substitutes the
+  `observableParameter<i>_<obs>` placeholders from each measurement row.
+* **Noise parameters that PEtab does not estimate** (`estimate = 0`, here the three "total" observables, with sigmas of 1e6 to 2e8):
+  declare them in `Loss_config` with `"sigma_method": "fixed", "sigma_value": ...`. The estimated ones stay profiled. The two
+  conventions differ by a constant (profiled `(n/2) ln(SSE/n)`, declared `n ln(sigma) + SSE/(2 sigma^2)`), and
+  `benchmarks/compare_fits.py` scores each group the way its noise parameter is treated.
+* **One noise parameter for an observable measured in several conditions** (`std_yPKDpN0`): the loss elements share a
+  `"sigma_block": "<name>"`, which makes one sigma per observable across them. `sigma_pool` pools observables inside one simulation
+  and does not do this: two blocks appear, the objective is off by ~10, and nothing fails. Check the engine's line
+  "N block(s), M points, k parameters + S estimated sigma(s)" against PEtab's count of estimated parameters.
+* **Inputs driven by condition parameters** (`u5 := piecewise(0, time - PdBu_time < 0, PdBu_dose)` with a flag, a dose and a time per
+  condition): make the inputs plain parameters (0) that events set (`at (time >= T_PREEQUIL + 24): u5 = 1`) and put the conditions
+  in `Events.py`. The six condition columns vanish from the model. Time restarts at the switch in PEtab, so the data times are
+  shifted by the pre-equilibration length.
+* **Replicate measurements** at one time are several rows of that (condition, time) in the data file (`emit.write_condition_data_csv`);
+  a blank is "not measured" and the engine skips it.
+* **A reaction that is always off** (`pu2 * u2` with `u2 := 0`) is dropped, with its parameter.
+* **Pre-equilibration by integration** agrees with PEtab's steady-state solve at the nominal point and at most random points in the
+  bounds, but this model is bistable and stiff in places: a few parameter sets make even the reference fail (CVODE
+  "too much work") or land on another fixed point. Compare at several random sets and say which ones fail.
+
+## 8. Pitfalls found on Sneyd_PNAS2002 (one shared sigma, a clean problem)
+
+* **A power in a PEtab formula is `^`**, which Python reads as XOR: `reference._eval` translates it to `**`. Write it as `^` in an
+  Antimony rule (`open_probability := (0.9 * A + 0.1 * O)^4`).
+* **One noise parameter for every measurement across conditions** (`noiseParameters = sigma` on all rows): every loss element carries
+  the same `"sigma_block"`, giving one profiled sigma for the whole problem (a per-replicate sigma, the default, is the wrong model).
+* **A compartment with no species** (`default`) needs no volume parameter: pass `exclude=["V_Default"]` to `emit.write_parameters_csv`.
+* **The benchmark's `simulations.tsv` can be wrong**: Sneyd's has two conditions swapped. Compare it by key (condition, time), not by
+  row position (the tables are in different orders), and settle a disagreement with an independent implementation (AMICI's PEtab importer
+  at the nominal parameters), not by editing the reference.
+* **Time a warm AMICI run**: the first fit of a model compiles it (minutes); `benchmarks/` timings must come from a warm cache.

@@ -66,18 +66,22 @@ def preequilibration_values(problem: PetabProblem) -> dict[str, float]:
 
 
 def write_parameters_csv(problem: PetabProblem, path: str | Path, comments: dict[str, str] | None = None,
-                         extra: dict[str, float] | None = None) -> list[str]:
+                         extra: dict[str, float] | None = None, exclude=()) -> list[str]:
     """Nominal values of every SBML parameter, plus one ``V_<Compartment>`` per compartment.
 
-    PEtab's nominalValue wins over the value stored in the SBML (as in PEtab).
+    PEtab's nominalValue wins over the value stored in the SBML (as in PEtab). ``exclude`` names SBML parameters the
+    PyAntiGen model does not have (a condition's switches and doses, which become events; a rate that is always zero);
+    ``extra`` adds parameters the SBML does not have (observable scale factors, inputs an event sets).
     Returns the parameter names written.
     """
     m = _model(problem)
     nominal = nominal_values(problem)
     nominal.update(preequilibration_values(problem))
-    skip = assignment_targets(problem)
+    skip = assignment_targets(problem) | set(exclude)
     rows = []
     for c in m.getListOfCompartments():
+        if f"V_{camel_case(c.getId())}" in set(exclude):          # a compartment without species (Sneyd's `default`)
+            continue
         rows.append((f"V_{camel_case(c.getId())}", c.getSize(), "volume of compartment " + c.getId()))
     for p in m.getListOfParameters():
         if p.getId() in skip:
@@ -196,3 +200,20 @@ def write_long_data_csv(problem: PetabProblem, path: str | Path, observable: str
                         column: m["measurement"].values})
     out.to_csv(path, index=False, float_format="%.12g")
     return out
+
+
+def write_condition_data_csv(problem: PetabProblem, path: str | Path, condition_column: str = "condition") -> pd.DataFrame:
+    """Every measurement of every simulation condition, one row per (condition, time, replicate), one column per observable.
+
+    PEtab's long table repeats ``observableId``, both condition ids and the observable and noise parameters on every row.
+    Here an observable's measurement sits in its own column; the second, third... measurement of the same observable at
+    the same time goes in a further row of that (condition, time), so replicates are kept. A blank is "not measured".
+    """
+    m = problem.measurements.copy()
+    m["_rep"] = m.groupby(["simulationConditionId", "observableId", "time"]).cumcount()
+    wide = m.pivot_table(index=["simulationConditionId", "time", "_rep"], columns="observableId", values="measurement",
+                         aggfunc="first").reset_index().drop(columns="_rep")
+    wide = wide.rename(columns={"simulationConditionId": condition_column})
+    wide.columns.name = None
+    wide.to_csv(path, index=False, float_format="%.12g")
+    return wide

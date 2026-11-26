@@ -25,32 +25,63 @@ sys.path.insert(0, str(ROOT))
 from petab2pyantigen.petab_reader import load_petab                          # noqa: E402
 from petab2pyantigen.reference import nominal_values, simulate_petab           # noqa: E402
 
-def noise_names(problem) -> set:
-    """The noise parameters of the problem: what its measurement table names in ``noiseParameters``."""
+def _noise_ids(problem) -> set:
+    """Every parameter id the measurement table names in ``noiseParameters``."""
     col = problem.measurements.get("noiseParameters")
-    return {str(v) for v in col.dropna().unique()} | {"sigma"} if col is not None else {"sigma"}
+    if col is None:
+        return {"sigma"}
+    return {p.strip() for v in col.dropna().unique() for p in str(v).split(";") if p.strip()} | {"sigma"}
+
+
+def known_sigmas(problem) -> dict:
+    """{noiseParameters string: sigma} for the groups whose noise parameter is NOT estimated (estimate = 0 in the
+    parameter table): PEtab holds them at their nominal value, so they are declared sigmas, not maximum-likelihood ones."""
+    out = {}
+    col = problem.measurements.get("noiseParameters")
+    if col is None:
+        return out
+    table = problem.parameters
+    for v in col.dropna().unique():
+        parts = [p.strip() for p in str(v).split(";")]
+        if len(parts) == 1 and parts[0] in table.index and int(table.loc[parts[0], "estimate"]) == 0:
+            out[str(v)] = float(table.loc[parts[0], "nominalValue"])
+    return out
+
+
+def noise_names(problem) -> set:
+    """The ESTIMATED noise parameters: they are not model parameters, and the score puts each at its ML value."""
+    return _noise_ids(problem) - set(known_sigmas(problem)) | ({"sigma"} if "sigma" in _noise_ids(problem) else set())
 
 
 def score(problem, params: dict) -> dict:
     """PEtab reference objective at ``params``: SSE, ML sigma, NLL in the engine's convention and as -log L.
 
     Measurements that share a noise parameter share a sigma, taken at its maximum-likelihood value (Zheng: one for all 60
-    points; Zhao: one per dataset). NLL is ``sum_g (n_g/2) ln(SSE_g/n_g)``, the engine's concentrated NLL; -log L adds
-    ``N/2 (1 + ln 2 pi)``.
+    points; Zhao: one per dataset); a noise parameter PEtab does not estimate (Weber's total-protein observables) keeps its
+    nominal value. NLL is ``sum_g (n_g/2) ln(SSE_g/n_g)`` over the estimated groups plus ``n ln sigma + SSE/(2 sigma^2)`` over
+    the declared ones: the engine's concentrated NLL. -log L adds the constants (``N/2 ln 2 pi`` plus ``N/2`` for each
+    estimated group's points).
     """
     noise = noise_names(problem)
+    known = known_sigmas(problem)
     sims = simulate_petab(problem, {k: v for k, v in params.items() if k not in noise})
     key = sims["noiseParameters"].astype(str) if "noiseParameters" in sims else "sigma"
     nll, sse_total, sigmas = 0.0, 0.0, []
-    for _g, rows in sims.groupby(key):
+    for g, rows in sims.groupby(key):
         sse = float(((rows["measurement"] - rows["simulation"]) ** 2).sum())
         n = len(rows)
-        nll += 0.5 * n * math.log(sse / n)
+        if g in known:                          # declared sigma: the plain Gaussian term, n ln(sigma) + SSE / (2 sigma^2)
+            sg = known[g]
+            nll += n * math.log(sg) + sse / (2 * sg * sg)
+            sigmas.append(sg)
+        else:                                   # estimated: profiled out, (n/2) ln(SSE/n)
+            nll += 0.5 * n * math.log(sse / n)
+            sigmas.append(math.sqrt(sse / n))
         sse_total += sse
-        sigmas.append(math.sqrt(sse / n))
     n_all = len(sims)
     return {"sse": sse_total, "sigma_ml": sigmas[0] if len(sigmas) == 1 else float(np.median(sigmas)), "n_sigmas": len(sigmas),
-            "nll": nll, "neg_log_l": nll + 0.5 * n_all * (1 + math.log(2 * math.pi))}
+            "nll": nll, "neg_log_l": nll + 0.5 * n_all * math.log(2 * math.pi)
+            + 0.5 * sum(len(r) for g, r in sims.groupby(key) if g not in known)}
 
 
 def deriv_note(r: dict) -> str:
@@ -89,16 +120,21 @@ def main(argv=None):
 
     rows = []
     for f in fits:
-        sc = score(problem, f["params"])
+        try:
+            sc = score(problem, f["params"])
+        except RuntimeError:                      # the reference solver cannot integrate this parameter vector (stiff corner of the box)
+            sc = {"sse": math.nan, "sigma_ml": math.nan, "n_sigmas": base["n_sigmas"], "nll": math.nan, "neg_log_l": math.nan}
         ag = parameter_agreement(f, nominal, noise)
         rows.append({**f, **sc, "d_nll": sc["nll"] - base["nll"], **{f"ag_{k}": v for k, v in ag.items()},
                      "s_per_eval": f["wall_s"] / max(f["nfev"] or 1, 1)})
-    rows.sort(key=lambda r: r["wall_s"])
+    rows.sort(key=lambda r: (r.get("seed", 1), r["wall_s"]))
 
+    several_starts = len({r.get("seed") for r in rows}) > 1          # then say which start each route had
     lines = [
         f"# {args.problem}: the fitting routes compared",
         "",
-        "Every route starts from the same perturbed point (seed 1: each parameter x 10**U(-0.3, 0.3), inside its bounds) and "
+        "Every route starts from the same perturbed point (seed 1: each parameter x 10**U(-0.3, 0.3), inside its bounds; "
+        "a route listed with another seed starts from that seed's point, the same for every route with that seed) and "
         "fits the problem's parameters on a log10 scale. Each fitted parameter vector is then **re-scored with one objective, "
         "PEtab's own** (SBML + tables, RoadRunner, each noise parameter at its ML value), so the routes are compared on the "
         "same footing.",
@@ -108,14 +144,16 @@ def main(argv=None):
         f"{'sigma' if base['n_sigmas'] == 1 else 'median sigma'} = {base['sigma_ml']:.6g}). NLL is in the engine's convention, "
         "the sum over noise groups of `(n/2) ln(SSE/n)`; -log L adds N/2 (1 + ln 2 pi).",
         "",
-        "| route | sigma | converged | evals | wall s | s/eval | NLL (PEtab reference) | vs PEtab's | median / max shift in decades | > 0.1 decade |",
-        "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: |",
+        "| route | start | sigma | converged | evals | wall s | s/eval | NLL (PEtab reference) | vs PEtab's | median / max shift in decades | > 0.1 decade |",
+        "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: |",
     ]
     for r in rows:
         lines.append(
-            f"| {r['route']}{deriv_note(r)} | {r['sigma']} | "
+            f"| {r['route']}{deriv_note(r)} | seed {r.get('seed', 1)} | {r['sigma']} | "
             f"{'yes' if r['success'] else 'no (budget)'} | {r['nfev']} | {r['wall_s']:.0f} | {r['s_per_eval']:.3f} | "
-            f"{r['nll']:.4f} | {r['d_nll']:+.4f} | {r['ag_median']:.3f} / {r['ag_max']:.2f} | {r['ag_n_over_0p1']} of {r['ag_n']} |")
+            + (f"{r['nll']:.4f} | {r['d_nll']:+.4f} | " if not math.isnan(r["nll"]) else
+               f"reference solver fails (engine: {r['objective']:.1f}) | | ")
+            + f"{r['ag_median']:.3f} / {r['ag_max']:.2f} | {r['ag_n_over_0p1']} of {r['ag_n']} |")
     lines += ["", "Platform / versions: " + "; ".join(sorted({f"{r['platform']}, Python {r['python']}" for r in rows})), ""]
     notes = [r for r in rows if r.get("note")]
     if notes:
@@ -132,7 +170,8 @@ def figure(rows, base, out, problem_name):
 
     INK, MUTED, GRID, SURFACE = "#0b0b0b", "#52514e", "#e4e3df", "#fcfcfb"
     PYANTIGEN, DIRECT = "#2a78d6", "#eb6834"                  # categorical slots 1 and 2 of the reference palette
-    rows = sorted(rows, key=lambda r: r["wall_s"])
+    several_starts = len({r.get("seed") for r in rows}) > 1
+    rows = sorted(rows, key=lambda r: (r.get("seed", 1), r["wall_s"]))
     fig, ax = plt.subplots(figsize=(11.5, 0.62 * len(rows) + 2.3), facecolor=SURFACE)
     ax.set_facecolor(SURFACE)
     ys = list(range(len(rows)))[::-1]
@@ -140,14 +179,18 @@ def figure(rows, base, out, problem_name):
     labels = []
     for y, r in zip(ys, rows):
         direct = r["route"].startswith("PEtab")
+        stalled = math.isnan(r["d_nll"])                  # the reference solver cannot simulate the fitted vector
+        hatch = None if r["success"] and not stalled else "..." if stalled else "///"
         ax.barh(y, r["wall_s"], height=0.62, color=DIRECT if direct else PYANTIGEN,
-                hatch=None if r["success"] else "///", edgecolor=SURFACE if r["success"] else "white", linewidth=0)
-        gap = f"{r['d_nll']:+.4f}"
+                hatch=hatch, edgecolor="white" if hatch else SURFACE, linewidth=0)
+        gap = f"{r['d_nll']:+.4f}" if not math.isnan(r["d_nll"]) else f"reference solver fails (engine {r['objective']:.0f})"
         ax.text(r["wall_s"] + top * 0.012, y, f"{r['wall_s']:.0f} s  |  {r['nfev']:,} evals  |  NLL {gap}"
-                + ("  (stopped at its evaluation limit)" if not r["success"] else ""),
+                + ("  (budget)" if not r["success"] else ""),
                 va="center", fontsize=9, color=INK)
         short = r["route"].replace("PyAntiGen / ", "PyAntiGen, ").replace("PEtab -> AMICI directly", "PEtab straight to AMICI")
         short = short.replace(" / ", ", ")
+        if several_starts:
+            short += f" (start {r.get('seed', 1)})"
         note = deriv_note(r).strip(" ()")
         labels.append(short + (f"\n{note}" if note else ""))
     ax.set_yticks(ys)
@@ -159,12 +202,14 @@ def figure(rows, base, out, problem_name):
     ax.tick_params(colors=MUTED, length=0)
     for sp in ax.spines.values():
         sp.set_visible(False)
-    ax.set_title(f"{problem_name} from one perturbed start: time to fit, by route", loc="left", color=INK, fontsize=11.5)
+    ax.set_title(f"{problem_name} from {'perturbed starts' if several_starts else 'one perturbed start'}: time to fit, by route",
+                 loc="left", color=INK, fontsize=11.5)
     fig.text(0.01, 0.012, "blue = PyAntiGen, orange = PEtab straight through AMICI with no PyAntiGen. NLL is the PEtab reference "
              "objective of the fitted parameters relative to PEtab's published fit:\n0 = as good, negative = better, positive = worse. "
-             "Hatched: stopped at its evaluation limit. One start per route: where the landscape has several optima, "
-             "routes can end in different ones.", fontsize=8, color=MUTED, va="bottom")
-    fig.tight_layout(rect=[0, 0.07, 1, 1])
+             "Slashes: stopped at its evaluation budget. Dots: ended where the reference solver cannot simulate the parameters.\n"
+             "One start per bar: where the landscape has several optima, routes can end in different ones.", fontsize=8, color=MUTED,
+             va="bottom")
+    fig.tight_layout(rect=[0, 0.09, 1, 1])
     fig.savefig(out / "comparison.png", dpi=150, facecolor=SURFACE)
     print("wrote", out / "comparison.png")
 

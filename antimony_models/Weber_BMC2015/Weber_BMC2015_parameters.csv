@@ -1,0 +1,37 @@
+Parameter,Value,Units,Comment
+V_Cyt,1.0,,volume of compartment cyt
+a11,0.182532326367113,,
+a12,26.6713328753608,,
+a21,1.87704479834148,,
+a22,0.0001,,
+a31,0.135335059339132,,
+a32,0.0001,,
+a33,0.0001,,
+m11,10000000000.0,,
+m22,2153.51392335252,,
+m31,9970035709.05734,,
+m33,41871228.8317411,,
+p11,4.24383990916234,,
+p12,0.005935939292274,,
+p13,0.002460257477278,,
+p21,5.6290367522644,,
+p22,21.7856860653472,,
+p31,2537.97413617078,,
+p32,16.7677390849425,,
+p33,21658.8400024158,,
+pu3,100000000.0,,
+pu4,33133606.9433133,,
+pu5,33.6959765525242,,
+pu6,113.366007469962,,
+s12,88461.2150536401,,
+s21,2961147.46928213,,
+s31,4327961.43037034,,
+scale_yCERTpRN24,121.028409854968,,observable scale factor (fitted)
+scale_yPI4K3BpRN24,3.39366857781642,,observable scale factor (fitted)
+scale_yPKDpN0,0.007176447966379,,observable scale factor (fitted)
+scale_yPKDpN24,0.003370141139919,,observable scale factor (fitted)
+scale_yPKDpN25,0.000237349365354,,observable scale factor (fitted)
+u3,0.0,,input: 0 until an event sets it (Events.py)
+u4,0.0,,input: 0 until an event sets it (Events.py)
+u5,0.0,,input: 0 until an event sets it (Events.py)
+u6,0.0,,input: 0 until an event sets it (Events.py)

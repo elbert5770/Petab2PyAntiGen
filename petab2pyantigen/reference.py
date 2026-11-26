@@ -10,7 +10,6 @@ cannot score faithfully, instead of silently giving a wrong number.
 from __future__ import annotations
 
 import math
-import re
 
 import numpy as np
 import pandas as pd
@@ -52,7 +51,8 @@ def _set(r: roadrunner.RoadRunner, target: str, value: float) -> None:
 
 
 def _eval(formula: str, ns: dict):
-    return eval(formula, {"__builtins__": {}}, {**_MATH_NS, **ns})
+    # PEtab formulas (muParser syntax) write a power as ``^``, which Python reads as XOR
+    return eval(formula.replace("^", "**"), {"__builtins__": {}}, {**_MATH_NS, **ns})
 
 
 def simulate_petab(problem: PetabProblem, parameters: dict[str, float] | None = None,
@@ -64,8 +64,6 @@ def simulate_petab(problem: PetabProblem, parameters: dict[str, float] | None = 
     pars = nominal_values(problem)
     pars.update(parameters or {})
     meas = problem.measurements
-    if "observableParameters" in meas and meas["observableParameters"].notna().any():
-        raise NotImplementedError("observableParameters placeholders are not supported")
 
     r = roadrunner.RoadRunner(str(problem.sbml_path))
     r.integrator.absolute_tolerance = abs_tol
@@ -111,10 +109,21 @@ def simulate_petab(problem: PetabProblem, parameters: dict[str, float] | None = 
         for _, m in block.iterrows():
             obs = problem.observables.loc[m["observableId"]]
             line = sim_df.loc[np.isclose(sim_df["time"], m["time"])].iloc[0]
-            ns = {**glob, **{s: line[s] for s in species}}
+            ns = {**glob, **{s: line[s] for s in species}, **placeholders(m, pars, "observable", "observableParameters")}
             y = float(_eval(obs["observableFormula"], ns))
             rows.append({**m.to_dict(), "simulation": y})
     return pd.DataFrame(rows)
+
+
+def placeholders(row, pars: dict, kind: str, column: str) -> dict:
+    """``observableParameter<i>_<obs>`` / ``noiseParameter<i>_<obs>`` of one measurement row: each name in the row's
+    semicolon-separated ``column`` is a number or the id of a parameter (looked up in ``pars``)."""
+    raw = row.get(column)
+    if raw is None or (isinstance(raw, float) and math.isnan(raw)) or str(raw) == "":
+        return {}
+    values = str(raw).split(";")
+    return {f"{kind}Parameter{i}_{row['observableId']}": float(v) if _is_number(v) else pars[v.strip()]
+            for i, v in enumerate(values, 1)}
 
 
 def _transform(y, kind: str):
@@ -133,14 +142,8 @@ def log_likelihood(problem: PetabProblem, sims: pd.DataFrame,
         obs = problem.observables.loc[row["observableId"]]
         if str(obs.get("noiseDistribution", "normal")) != "normal":
             raise NotImplementedError("only normal noise is supported")
-        formula = str(obs["noiseFormula"])
-        placeholders = re.findall(r"noiseParameter(\d+)_" + re.escape(row["observableId"]), formula)
-        ns = dict(pars)
-        if placeholders:
-            vals = str(row["noiseParameters"]).split(";")
-            for i, v in enumerate(vals, 1):
-                ns[f"noiseParameter{i}_{row['observableId']}"] = float(v) if _is_number(v) else pars[v]
-        sigma = float(_eval(formula, ns))
+        ns = {**pars, **placeholders(row, pars, "noise", "noiseParameters")}
+        sigma = float(_eval(str(obs["noiseFormula"]), ns))
         kind = str(obs.get("observableTransformation", "lin"))
         res = _transform(row["measurement"], kind) - _transform(row["simulation"], kind)
         total += -0.5 * (math.log(2 * math.pi * sigma ** 2) + (res / sigma) ** 2)

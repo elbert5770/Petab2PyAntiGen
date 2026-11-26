@@ -22,3 +22,19 @@ def zhao_petab():
     if not (d / "problem.yaml").exists():
         pytest.skip(f"PEtab Zhao_QuantBiol2020 not found at {d} (set PETAB_BENCHMARK_DIR)")
     return d
+
+
+@pytest.fixture(scope="session")
+def weber_petab():
+    d = BENCHMARK / "problems" / "Weber_BMC2015" / "v1"
+    if not (d / "problem.yaml").exists():
+        pytest.skip(f"PEtab Weber_BMC2015 not found at {d} (set PETAB_BENCHMARK_DIR)")
+    return d
+
+
+@pytest.fixture(scope="session")
+def sneyd_petab():
+    d = BENCHMARK / "problems" / "Sneyd_PNAS2002" / "v1"
+    if not (d / "problem.yaml").exists():
+        pytest.skip(f"PEtab Sneyd_PNAS2002 not found at {d} (set PETAB_BENCHMARK_DIR)")
+    return d

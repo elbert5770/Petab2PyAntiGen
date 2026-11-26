@@ -1,0 +1,30 @@
+compartment Cyt := V_Cyt
+
+substanceOnly species CERTERa_Cyt in Cyt
+substanceOnly species CERTTGNa_Cyt in Cyt
+substanceOnly species CERT_Cyt in Cyt
+substanceOnly species PI4K3B_Cyt in Cyt
+substanceOnly species PI4K3Ba_Cyt in Cyt
+substanceOnly species PKDDAGa_Cyt in Cyt
+substanceOnly species PKD_Cyt in Cyt
+
+PKD_activation_by_CERT_PI4K3B_Cyt : PKD_Cyt -> PKDDAGa_Cyt; (CERTERa_Cyt/V_Cyt) * (PI4K3Ba_Cyt/V_Cyt) * (PKD_Cyt/V_Cyt) * p11 * p31 / (((PI4K3Ba_Cyt/V_Cyt) + m31) * (m11 + (CERTERa_Cyt/V_Cyt) * (PI4K3Ba_Cyt/V_Cyt) * p31 / ((PI4K3Ba_Cyt/V_Cyt) + m31))) * V_Cyt
+PKD_activation_by_DAG_Cyt : PKD_Cyt -> PKDDAGa_Cyt; (PKD_Cyt/V_Cyt) * p12 * (pu5 * u5 + 1) * V_Cyt
+PKD_inactivation_Cyt : PKDDAGa_Cyt -> PKD_Cyt; (PKDDAGa_Cyt/V_Cyt) * p13 * (pu6 * u6 + 1) * V_Cyt
+PI4K3B_inactivation_Cyt : PI4K3Ba_Cyt -> PI4K3B_Cyt; p21 * (PI4K3Ba_Cyt/V_Cyt) * V_Cyt
+PI4K3B_activation_by_PKD_Cyt : PI4K3B_Cyt -> PI4K3Ba_Cyt; (PI4K3B_Cyt/V_Cyt) * (PKDDAGa_Cyt/V_Cyt) * p22 / ((PKDDAGa_Cyt/V_Cyt) + m22) * V_Cyt
+CERT_to_ER_Cyt : CERT_Cyt -> CERTERa_Cyt; p32 * (CERT_Cyt/V_Cyt) * V_Cyt
+CERT_ER_to_TGN_Cyt : CERTERa_Cyt -> CERTTGNa_Cyt; (CERTERa_Cyt/V_Cyt) * (PI4K3Ba_Cyt/V_Cyt) * p31 / ((PI4K3Ba_Cyt/V_Cyt) + m31) * V_Cyt
+CERT_TGN_release_Cyt : CERTTGNa_Cyt -> CERT_Cyt; (CERTTGNa_Cyt/V_Cyt) * (PKDDAGa_Cyt/V_Cyt) * p33 / ((PKDDAGa_Cyt/V_Cyt) + m33) * V_Cyt
+PKD_synthesis_Cyt : -> PKD_Cyt; s12 * V_Cyt
+PI4K3B_synthesis_Cyt : -> PI4K3B_Cyt; s21 * V_Cyt
+PI4K3B_ectopic_expression_Cyt : -> PI4K3B_Cyt; pu3 * u3 * V_Cyt
+CERTERa_synthesis_Cyt : -> CERTERa_Cyt; s31 * V_Cyt
+CERTERa_ectopic_expression_Cyt : -> CERTERa_Cyt; pu4 * u4 * V_Cyt
+Degradation_PKD_Cyt : PKD_Cyt ->; a11 * (PKD_Cyt/V_Cyt) * V_Cyt
+Degradation_PKDDAGa_Cyt : PKDDAGa_Cyt ->; a12 * (PKDDAGa_Cyt/V_Cyt) * V_Cyt
+Degradation_PI4K3B_Cyt : PI4K3B_Cyt ->; a21 * (PI4K3B_Cyt/V_Cyt) * V_Cyt
+Degradation_PI4K3Ba_Cyt : PI4K3Ba_Cyt ->; a22 * (PI4K3Ba_Cyt/V_Cyt) * V_Cyt
+Degradation_CERTERa_Cyt : CERTERa_Cyt ->; a31 * (CERTERa_Cyt/V_Cyt) * V_Cyt
+Degradation_CERT_Cyt : CERT_Cyt ->; a32 * (CERT_Cyt/V_Cyt) * V_Cyt
+Degradation_CERTTGNa_Cyt : CERTTGNa_Cyt ->; a33 * (CERTTGNa_Cyt/V_Cyt) * V_Cyt

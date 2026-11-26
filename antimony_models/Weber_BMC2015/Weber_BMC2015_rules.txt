@@ -1,0 +1,8 @@
+yPKDt := PKD_Cyt + PKDDAGa_Cyt
+yPI4K3Bt := PI4K3B_Cyt + PI4K3Ba_Cyt
+yCERTt := CERT_Cyt + CERTERa_Cyt + CERTTGNa_Cyt
+yPKDpN0 := PKDDAGa_Cyt * scale_yPKDpN0
+yPKDpN24 := PKDDAGa_Cyt * scale_yPKDpN24
+yPKDpN25 := PKDDAGa_Cyt * scale_yPKDpN25
+yPI4K3BpRN24 := PI4K3Ba_Cyt * scale_yPI4K3BpRN24 / (PI4K3B_Cyt + PI4K3Ba_Cyt)
+yCERTpRN24 := CERT_Cyt * scale_yCERTpRN24 / (CERT_Cyt + CERTERa_Cyt + CERTTGNa_Cyt)

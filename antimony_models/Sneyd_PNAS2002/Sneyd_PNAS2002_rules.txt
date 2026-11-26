@@ -1,0 +1,4 @@
+L1 := k_1 / k1 / (l_2 / l2)
+L3 := k_2 / k2 / (l_4 / l4)
+L5 := k_4 / k4 / (l_6 / l6)
+open_probability := (0.9 * IPR_A_Membrane + 0.1 * IPR_O_Membrane)^4

@@ -170,3 +170,72 @@ simulation (520.627), with "21 parameters + 7 estimated sigmas = 28", PEtab's ow
 landscape has several optima, so the three single-start fits end at different points (PEtab's published parameters score NLL
 520.6; PyAntiGen on AMICI reaches 387.5, PEtab straight through AMICI 390.7, Nelder-Mead on RoadRunner 426.5): wall-clock
 alone does not say which route is better.
+
+## Weber_BMC2015
+
+PKD, PI4KIIIbeta and CERT signalling at the Golgi (Weber et al., BMC Systems Biology 2015): 7 species, 20 reactions with
+feedback between three cycling proteins, fitted to 135 measurements of 8 observables in two conditions. What it adds to the
+two earlier problems:
+
+* **Time-driven inputs written as condition parameters.** PEtab gives each condition a flag, a dose and a time per stimulus,
+  and SBML rules (`u5 := piecewise(0, time - PdBu_time < 0, PdBu_dose)`) turn them into four inputs. Here the inputs are
+  parameters that events set (`Modules/Events.py`: `CONDITIONS`), after a pre-equilibration with every input off.
+* **Observables with fitted scale factors.** `yPKDpN0 := PKDDAGa_Cyt * scale_yPKDpN0` is a rule of the module; the scale is an
+  ordinary fitted parameter.
+* **Mixed noise.** Five noise parameters are estimated (profiled per observable; `yPKDpN0` is measured in both conditions, so
+  the two loss elements share a `sigma_block`) and three, those of the "total" observables, are fixed by PEtab
+  (`estimate = 0`) and declared in `Loss_config.KNOWN_SIGMA`. The engine reports PEtab's own parameter count: 31 + 5 = 36.
+* **Replicate measurements** at one time are several rows of the data file (`emit.write_condition_data_csv`).
+
+```powershell
+cd problems\Weber_BMC2015
+python Model_run.py --simulate Weber              # figure in results/Weber_BMC2015/
+python Model_run.py --optimize Weber --no-fit     # the objective at PEtab's nominal parameters: NLL 112.145
+python Model_run.py --optimize WeberAMICI         # WSL: L-BFGS-B with the AMICI gradient
+```
+
+Checked against PEtab (`tests/test_weber.py`): the reference simulator reproduces the benchmark's `simulations.tsv` (5e-8
+relative); PyAntiGen's observables agree with it to ~1e-8 relative at the nominal parameters and at 7 of 8 random sets (the
+reference solver itself fails on the eighth); the engine's objective at the nominal parameters, 112.145, equals the sum over
+noise groups scored the way PEtab treats each (estimated: profiled; fixed: declared).
+
+`benchmarks/Weber_BMC2015/` holds the comparison, `fits.png` (every route's final fit over the data) and the size comparison.
+From the start every route shares (seed 1) PyAntiGen's AMICI L-BFGS-B does **not** converge usefully: the first line search steps 30
+in log10 space and the fit ends in a corner of the box (engine NLL 12,485, against 112.15 at PEtab's parameters). The
+gradient is not at fault (it matches finite differences of the reference to 7e-8); from seeds 2, 3 and 4 the same route
+converges to NLL 112.18-112.28 in 300-430 evaluations (72-97 s), against 1,148 evaluations (235 s) for PEtab straight through AMICI
+from seed 2. One start per route is not enough on this problem.
+
+## Sneyd_PNAS2002
+
+The type-2 IP3 receptor (Sneyd and Dufour, PNAS 2002), fitted to nine time courses of calcium release at different constant IP3 and
+Ca2+: six receptor states, ten first-order transitions, 135 measurements of one observable, the open probability. The smallest and
+fastest of the problems, and the plainest: no events, no pre-equilibration, no inputs.
+
+* `antimony_modules/Calcium/ip3r_Sneyd_PNAS2002.py`: the ten transitions as a list of (from, to, coefficient) that one loop turns
+  into reactions, the rules `L1, L3, L5` that close the thermodynamic cycles, and the observable as a rule,
+  `open_probability := (0.9 * IPR_A + 0.1 * IPR_O)^4`.
+* `data/Sneyd_PNAS2002_conditions.csv`: the nine rows of constant IP3 and Ca2+; the tool derives it (`emit.effective_condition_values`
+  finds that only those two quantities vary). `Update_parameters.py` sets them on each replicate.
+* PEtab's one noise parameter, `sigma`, is shared by all 135 points: the nine loss elements carry the same `sigma_block`, so there is
+  one profiled sigma. PyAntiGen reports PEtab's own parameter count, 14 + 1 = 15.
+
+```powershell
+cd problems\Sneyd_PNAS2002
+python Model_run.py --simulate Sneyd              # figure in results/Sneyd_PNAS2002/
+python Model_run.py --optimize Sneyd --no-fit     # the objective at PEtab's nominal parameters: NLL -511.349
+python Model_run.py --optimize SneydAMICI         # WSL: L-BFGS-B with the AMICI gradient
+python Model_run.py --optimize SneydLM            # WSL: Levenberg-Marquardt, sigma declared
+```
+
+Checked against PEtab (`tests/test_sneyd.py`): observables agree to ~3e-8 relative at the nominal and at random parameters; the
+engine's objective at the nominal parameters, -511.349, equals the reference score (the benchmark's sigma is the ML one to 0.1%).
+**The benchmark's `simulations.tsv` has conditions 5 and 6 (3 and 10 uM Ca2+) swapped**: seven conditions agree with the reference to
+1e-6 and those two carry each other's curves. AMICI's own PEtab importer gives the same log-likelihood (319.7918) and the same curves
+as the reference, so the conversion is held to the SBML and `conditions.tsv`; the test documents the swap.
+
+`benchmarks/Sneyd_PNAS2002/` holds the comparison, `fits.png` and the size comparison. Every route, from two perturbed starts, ends within
+0.025 NLL of PEtab's optimum: PyAntiGen's LM (19-38 evaluations, 9-14 s) is the fastest and reaches an NLL 0.0004 below PEtab's published
+fit, so that is not quite converged; L-BFGS-B on AMICI, PyAntiGen's and PEtab straight through, takes 19-26 s; Nelder-Mead on RoadRunner
+needs 4,455 evaluations (41 s). A cold PyAntiGen AMICI run includes compiling the model (about three minutes here), which a warm run
+does not.

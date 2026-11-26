@@ -15,7 +15,7 @@ README, "AMICI (WSL)"):
     PATH=/opt/venv/bin:$PATH python benchmarks/amici_direct.py --problem Zheng_PNAS2012 --spec OPTIMIZATION_Zheng
 
 Paths: PYANTIGEN_DIR, PETAB_BENCHMARK_DIR, AMICI_OUT override the defaults (sibling checkouts, ~/amici_direct).
-Writes benchmarks/<problem>/fits/direct_amici_lbfgsb.json.
+Writes benchmarks/<problem>/fits/direct_amici_lbfgsb.json (``..._seed<n>.json`` for a start other than seed 1).
 """
 import argparse
 import json
@@ -81,7 +81,10 @@ free = names + [p for p in estimated if p not in names]                  # then 
 lo = {p: math.log10(float(pt.loc[p, "lowerBound"])) for p in free}
 hi = {p: math.log10(float(pt.loc[p, "upperBound"])) for p in free}
 N = len(prob.measurement_df)
-CONST = 0.5 * N * (1 + math.log(2 * math.pi))                            # PyAntiGen prints NLL without this constant
+# PyAntiGen prints the NLL without the Gaussian constants: N/2 ln(2 pi) for every point, and the N_est/2 that profiling a sigma
+# leaves for the points of an ESTIMATED noise parameter (a declared sigma, estimate = 0, leaves n ln(sigma) + SSE/(2 sigma^2))
+N_EST = int(prob.measurement_df["noiseParameters"].isin(estimated).sum()) if "noiseParameters" in prob.measurement_df else N
+CONST = 0.5 * N * math.log(2 * math.pi) + 0.5 * N_EST
 
 
 def evaluate(pars):
@@ -133,12 +136,13 @@ print(f"RESULT -llh={res.fun:.4f}  NLL without constant={res.fun - CONST:.4f}")
 
 out = HERE / args.problem / "fits"
 out.mkdir(parents=True, exist_ok=True)
-(out / "direct_amici_lbfgsb.json").write_text(json.dumps({
-    "problem": args.problem, "label": "direct_amici_lbfgsb", "route": "PEtab -> AMICI directly / L-BFGS-B", "backend": "amici",
+label = "direct_amici_lbfgsb" + ("" if args.seed == 1 else f"_seed{args.seed}")
+(out / f"{label}.json").write_text(json.dumps({
+    "problem": args.problem, "label": label, "route": "PEtab -> AMICI directly / L-BFGS-B", "backend": "amici",
     "method": "L-BFGS-B", "sigma": "estimated jointly (PEtab parameters)", "exact_derivatives": True, "seed": args.seed,
     "params": {n: 10 ** float(v) for n, v in zip(free, res.x)},
     "objective": float(res.fun - CONST), "success": bool(res.success), "message": str(res.message),
     "nfev": int(res.nfev), "nit": int(res.nit), "wall_s": round(wall, 1),
     "platform": platform.platform(), "python": platform.python_version(),
-    "note": "objective = -llh - n/2 (1 + ln 2 pi)",
+    "note": "objective = -llh - N/2 ln(2 pi) - N_est/2 (N_est: points of estimated noise parameters)",
 }, indent=1), encoding="utf-8")

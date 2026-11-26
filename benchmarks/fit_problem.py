@@ -91,10 +91,10 @@ def main(argv=None):
     rep = next(iter(experiment.replicates.values()))
     elem = next(iter(spec.groups.values()))["loss_elements"][0]
     lc = elem["loss_config"](rep) if callable(elem["loss_config"]) else elem["loss_config"]
-    known = any("sigma_method" in o for o in lc["observables"])
+    n_known = sum("sigma_method" in o for o in lc["observables"])           # declared sigmas: all, some (Weber) or none
     result = {
         "problem": args.problem, "label": args.label, "route": f"PyAntiGen / {backend} / {spec.method}", "spec": args.spec,
-        "backend": backend, "method": spec.method, "sigma": "declared" if known else "profiled",
+        "backend": backend, "method": spec.method, "sigma": ("declared" if n_known == len(lc["observables"]) else "profiled, some declared" if n_known else "profiled"),
         "exact_derivatives": not args.no_exact, "observables": args.observables,
         "derivatives": ("finite differences of the whole loss" if args.no_exact else
                         "chain rule, exact" if args.observables == "column" else "chain rule, observable differenced"),
