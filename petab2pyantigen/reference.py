@@ -85,18 +85,23 @@ def simulate_petab(problem: PetabProblem, parameters: dict[str, float] | None = 
     meas = meas.copy()
     meas["preequilibrationConditionId"] = meas.get("preequilibrationConditionId", pd.Series(dtype=object))
     for (pre, sim), block in meas.groupby(group_cols, dropna=False, sort=False):
-        r.reset()
+        r.resetAll()
         for pid in model_params & set(pars):
             try:
                 r[pid] = pars[pid]
             except RuntimeError:
                 pass
-        if isinstance(pre, str) and pre:
-            for tgt, val in _condition_values(problem, pre, pars).items():
-                _set(r, tgt, val)
-            r.steadyState()
-        for tgt, val in _condition_values(problem, sim, pars).items():
+        # The model starts in its FIRST condition: the pre-equilibration condition if there is one, else the simulation
+        # condition. Its values are applied before the initial state is evaluated, because SBML initial assignments may
+        # depend on them (Zhao's initial infections depend on the stage and region "triggers").
+        has_pre = isinstance(pre, str) and bool(pre)
+        for tgt, val in _condition_values(problem, pre if has_pre else sim, pars).items():
             _set(r, tgt, val)
+        r.reset()
+        if has_pre:
+            r.steadyState()
+            for tgt, val in _condition_values(problem, sim, pars).items():
+                _set(r, tgt, val)
         times = np.array(sorted(block["time"].unique()), dtype=float)
         if times[0] != 0.0:
             times = np.concatenate([[0.0], times])
@@ -113,7 +118,9 @@ def simulate_petab(problem: PetabProblem, parameters: dict[str, float] | None = 
 
 
 def _transform(y, kind: str):
-    return {"lin": y, "log": np.log(y), "log10": np.log10(y)}[kind]
+    if kind == "lin":
+        return y
+    return {"log": np.log, "log10": np.log10}[kind](y)
 
 
 def log_likelihood(problem: PetabProblem, sims: pd.DataFrame,

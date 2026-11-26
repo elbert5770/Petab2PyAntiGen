@@ -1,8 +1,8 @@
 # Zheng_PNAS2012: the fitting routes compared
 
-Every route starts from the same perturbed point (seed 1: each parameter x 10**U(-0.3, 0.3)) and fits all 45 rate constants and `inflowp` on a log10 scale in [1e-5, 1e3]. Each fitted parameter vector is then **re-scored with one objective, PEtab's own** (SBML + tables, RoadRunner, steady-state pre-equilibration, sigma at its ML value), so the routes are compared on the same footing.
+Every route starts from the same perturbed point (seed 1: each parameter x 10**U(-0.3, 0.3), inside its bounds) and fits the problem's parameters on a log10 scale. Each fitted parameter vector is then **re-scored with one objective, PEtab's own** (SBML + tables, RoadRunner, each noise parameter at its ML value), so the routes are compared on the same footing.
 
-PEtab's published parameters score NLL = -363.4698 (-log L = -278.3335, sigma = 0.002339). NLL is in the engine's convention, `(n/2) ln(SSE/n)`; -log L adds n/2 (1 + ln 2 pi).
+PEtab's published parameters score NLL = -363.4698 (-log L = -278.3335; 1 noise parameter at ML, sigma = 0.00233947). NLL is in the engine's convention, the sum over noise groups of `(n/2) ln(SSE/n)`; -log L adds N/2 (1 + ln 2 pi).
 
 | route | sigma | converged | evals | wall s | s/eval | NLL (PEtab reference) | vs PEtab's | median / max shift in decades | > 0.1 decade |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: |

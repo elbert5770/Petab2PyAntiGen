@@ -78,7 +78,7 @@ constant n/2 (1 + ln 2 pi)).
 
 ### How much does it compress?
 
-`python benchmarks/compression_zheng.py` writes `benchmarks/COMPRESSION.md` and `compression.png`: the model (SBML, Tellurium's
+`python benchmarks/Zheng_PNAS2012/compression.py` writes `benchmarks/Zheng_PNAS2012/COMPRESSION.md` and `compression.png`: the model (SBML, Tellurium's
 Antimony, the Antimony PyAntiGen generates, the module that generates it) and, separately, the estimation problem (each PEtab
 table against the PyAntiGen files that replace it), by bytes, code lines and gzip, with the module's growth from a 2 x 2 to a
 12 x 12 lattice. In short: the module is 31x smaller than the SBML (8x after gzip) and does not grow with the system; the
@@ -104,20 +104,20 @@ agree with RoadRunner to 1.1e-7 relative, including the 1e5 h pre-equilibration 
 
 ### Comparing the routes
 
-`benchmarks/` fits Zheng by every route from the same perturbed start (seed 1) and scores each fitted parameter vector
+`benchmarks/Zheng_PNAS2012/` fits Zheng by every route from the same perturbed start (seed 1) and scores each fitted parameter vector
 with one objective, PEtab's own (SBML + tables, RoadRunner, steady-state pre-equilibration), so the routes are compared on the
 same footing whatever engine produced them:
 
 ```bash
-benchmarks/run_all_fits.sh                 # WSL/Linux: the four fits (about 5 minutes in total), writes benchmarks/fits/*.json
-python benchmarks/compare_fits.py          # any platform: writes benchmarks/COMPARISON.md and comparison.png
+benchmarks/Zheng_PNAS2012/run_all_fits.sh   # WSL/Linux: the fits (about 15 minutes in total), writes benchmarks/Zheng_PNAS2012/fits/*.json
+python benchmarks/compare_fits.py --problem Zheng_PNAS2012   # any platform: writes COMPARISON.md and comparison.png there
 ```
 
-* **`benchmarks/COMPARISON.md`** is the table (evaluations, wall-clock, NLL under the PEtab reference, how far the
-  parameters moved from PEtab's published ones); **`benchmarks/comparison.png`** plots time against fit quality.
-* **`benchmarks/fits/<route>.json`** holds each route's fitted parameters, so a route can be re-scored or compared pairwise.
+* **`benchmarks/Zheng_PNAS2012/COMPARISON.md`** is the table (evaluations, wall-clock, NLL under the PEtab reference, how far the
+  parameters moved from PEtab's published ones); **`comparison.png`** plots time to fit by route.
+* **`fits/<route>.json`** (next to it) holds each route's fitted parameters, so a route can be re-scored or compared pairwise.
 * The routes: PyAntiGen on RoadRunner (Nelder-Mead), PyAntiGen on AMICI (L-BFGS-B with the gradient; Levenberg-Marquardt with
-  sigma declared), and PEtab straight through AMICI with no PyAntiGen (`amici_direct_zheng.py`). The LM fit is run three ways,
+  sigma declared), and PEtab straight through AMICI with no PyAntiGen (`benchmarks/amici_direct.py`). The LM fit is run three ways,
   because the derivative route depends on the observables: **bare result columns** (Zheng's own: exact chain rule, 48 s),
   **callables of the table** (not bare, as a difference of simulations is: only the observable is differenced, 67 s) and
   **finite differences of the whole loss** (what non-bare observables took before, 294-303 s). All three converge to the same
@@ -132,3 +132,40 @@ observable (or, for a composite, its aggregation) differenced otherwise; it draw
 
 Rate constants are named as in PEtab (`k00_01` = K27me0K36me0 -> K27me0K36me1); the 15 observables
 are `observable_K27me<a>K36me<b>`.
+
+## Zhao_QuantBiol2020
+
+COVID-19 in Wuhan, Hubei and the rest of China (Zhao et al., Quantitative Biology 2020): a three-reaction chain
+`Susceptible -> Unquarantined -> Quarantined -> Confirmed`, fitted to the cumulative confirmed cases of seven datasets
+(three regions x up to three stages of control). It is the opposite of Zheng: the model is tiny and the weight is in the
+**conditions**. PEtab selects each dataset's rates, population and initial infections with six 0/1 trigger parameters
+multiplied into SBML rules (`R := Trigger_Wuhan * (Trigger_Stage_I * R_Stage_I_Wuhan + ...)`, and the same for gamma_1,
+gamma_2, the population and four initial assignments). Here:
+
+* `antimony_modules/Epidemic/siqc_Zhao_QuantBiol2020.py`: the three reactions (one `custom_conc_per_time` law, two `MA`) and
+  the rules `alpha := R * gamma_1`, `beta := ...`.
+* `data/Zhao_QuantBiol2020_conditions.csv`: one row per (region, stage): population, initial infections and PEtab's nominal
+  `R, gamma_1, gamma_2`. **The tool derives it:** `emit.effective_condition_values` sets each condition's overrides in the
+  SBML, resets, and reports which model quantities differ between conditions (`emit.varying`); `write_condition_table_csv`
+  writes the independent ones.
+* `Experiment.py` loops over that table, one replicate per condition; `Update_parameters.py` gives a replicate its values
+  (and sets the initial species directly: RoadRunner evaluates initial assignments only on load);
+  `Update_opt_parameters.py` maps a fitted `R_Stage_I_Wuhan` onto the model's `R` in that replicate only.
+* PEtab estimates one `sd` per dataset (7); PyAntiGen's default, one profiled sigma per replicate, is the same model.
+
+```powershell
+cd problems\Zhao_QuantBiol2020
+python Model_run.py --simulate Zhao              # figure in results/Zhao_QuantBiol2020/
+python Model_run.py --optimize Zhao --no-fit     # the objective at PEtab's nominal parameters
+python Model_run.py --optimize ZhaoAMICI         # WSL: L-BFGS-B with the AMICI gradient
+```
+
+Checked against PEtab (`tests/test_zhao.py`): the observables agree to ~4e-9 relative at the nominal and at random parameters;
+the benchmark's own `simulations.tsv` is a real simulation here (unlike Zheng's) and the reference reproduces it to 1e-7;
+the engine's objective at the nominal parameters is the sum over the seven datasets of `(n/2) ln(SSE/n)` computed from PEtab's
+simulation (520.627), with "21 parameters + 7 estimated sigmas = 28", PEtab's own count.
+
+`benchmarks/Zhao_QuantBiol2020/COMPARISON.md` and `COMPRESSION.md` hold the route comparison and the size comparison. The
+landscape has several optima, so the three single-start fits end at different points (PEtab's published parameters score NLL
+520.6; PyAntiGen on AMICI reaches 387.5, PEtab straight through AMICI 390.7, Nelder-Mead on RoadRunner 426.5): wall-clock
+alone does not say which route is better.

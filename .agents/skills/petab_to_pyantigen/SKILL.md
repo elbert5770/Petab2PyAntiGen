@@ -78,7 +78,26 @@ Expect agreement of ~1e-8 or better. `tests/test_zheng.py` is the template for a
   Observables that are bare result columns (`observable_K27me0K36me0`) get an exact chain-rule gradient; an
   expression (`SF*pred`) or a callable observable falls back to ~600 finite-difference loss evaluations per gradient
   (~1.9 s on Zheng). Prefer assignment rules in the model over expressions in the loss config.
-* **Direct AMICI as a yardstick:** `benchmarks/amici_direct_zheng.py` runs the untouched PEtab problem through AMICI
-  (59 s for the Zheng fit); `benchmarks/run_all_fits.sh` + `compare_fits.py` score every route with PEtab's own objective. PEtab's explicit `sigma` must start near its ML value or the joint fit stalls; PyAntiGen's
+* **Direct AMICI as a yardstick:** `benchmarks/amici_direct.py` runs the untouched PEtab problem through AMICI
+  (59 s for the Zheng fit); `benchmarks/<Problem>/run_all_fits.sh` + `compare_fits.py --problem <Problem>` score every route with PEtab's own objective. PEtab's explicit `sigma` must start near its ML value or the joint fit stalls; PyAntiGen's
   profiled (concentrated) sigma has no such problem.
 * **`six`** is needed by Tellurium but no longer declared by it (it is in requirements.txt).
+
+## 6. Pitfalls found on Zhao_QuantBiol2020 (conditions that are switches)
+
+* **Conditions as 0/1 triggers.** PEtab can pick each condition's parameters and initial states with indicator parameters
+  multiplied into SBML rules. Do not translate the rules: `emit.effective_condition_values(problem)` evaluates what each
+  condition does (set its overrides, `reset()`), `emit.varying` lists what differs, and the independent columns become a small
+  per-condition CSV that `Experiment.py` loops over, one replicate per condition.
+* **Initial states in `Update_parameters` must be set on the species.** RoadRunner evaluates a species' initial assignment
+  when the model loads, and the engine's order is reset -> `Update_parameters` -> fitted values -> hooks, so a parameter
+  changed there does not reach an initial assignment that reads it.
+* **A fitted name only a hook understands** (`R_Stage_I_Wuhan` -> `R` of one replicate): `Update_opt_parameters`. `verify.py`
+  applies overrides the way a fit does, so this works there too; PyAntiGen's `member=` refuses a parameter a replicate does
+  not read, which is why verify does not use it.
+* **AMICI needs `"no_inputs": True`** on a replicate with no events (nothing clock-driven), or it asks for an input schedule.
+* **AMICI used to see stale values** for plain parameters `Update_parameters` sets but no fit moves (a regional population),
+  and to refuse data at the window's first time (day 0): the fit silently fell back to finite differences ("the analytic
+  gradient failed N time(s)": look for that line). Both are fixed in PyAntiGen; check the log of any AMICI fit for it.
+* **The reference must apply the first condition before the initial state is evaluated** (`reference.simulate_petab` does).
+* **Several optima:** one start per route ends at different points; compare objective values, not only times.

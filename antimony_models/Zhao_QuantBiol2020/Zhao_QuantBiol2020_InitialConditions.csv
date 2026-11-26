@@ -1,0 +1,5 @@
+Species,InitialCondition,Units,Comment
+Susceptible_Population,Total_Pop,,everyone; set per replicate (Update_parameters.py)
+Unquarantined_Infected_Population,258,,set per replicate
+Quarantined_Infected_Population,0,,set per replicate
+Confirmed_Infected_Population,258,,set per replicate

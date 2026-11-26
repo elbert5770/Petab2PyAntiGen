@@ -125,3 +125,74 @@ def write_wide_data_csv(problem: PetabProblem, path: str | Path) -> pd.DataFrame
     wide.insert(0, "time", wide.index)
     wide.to_csv(path, index=False, float_format="%.12g")
     return wide
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# conditions
+# --------------------------------------------------------------------------------------------------------------------
+
+def effective_condition_values(problem: PetabProblem) -> pd.DataFrame:
+    """What each PEtab condition does to the model: one row per condition, one column per quantity.
+
+    For every condition the SBML is loaded, parameters.tsv nominal values are applied, the condition's overrides are set
+    and the model is reset, so SBML rules and initial assignments that depend on the overrides are evaluated (Zhao's six
+    0/1 "trigger" parameters select the parameters and initial infections of each region and stage this way). The row holds
+    every global parameter and every species' initial amount.  Columns that differ between conditions are the ones a
+    PyAntiGen replicate has to set (see :func:`varying`).
+    """
+    import roadrunner
+    nominal = nominal_values(problem)
+    r = roadrunner.RoadRunner(str(problem.sbml_path))
+    params = list(r.model.getGlobalParameterIds())
+    species = list(r.model.getFloatingSpeciesIds()) + list(r.model.getBoundarySpeciesIds())
+    rows = {}
+    cond_ids = list(dict.fromkeys(problem.measurements["simulationConditionId"]))
+    for cid in cond_ids:
+        r.resetAll()
+        for pid in set(params) & set(nominal):
+            try:
+                r[pid] = nominal[pid]
+            except RuntimeError:                     # an assignment-rule target
+                pass
+        row = problem.conditions.loc[cid]
+        for col, val in row.items():
+            if col in ("conditionId", "conditionName") or pd.isna(val):
+                continue
+            r[col] = float(val)
+        r.reset()
+        rows[cid] = {**{p: float(r[p]) for p in params}, **{f"{s}(0)": float(r[s]) for s in species}}
+    return pd.DataFrame.from_dict(rows, orient="index")
+
+
+def varying(table: pd.DataFrame, rtol: float = 1e-12) -> list[str]:
+    """Columns of :func:`effective_condition_values` whose value differs between conditions."""
+    return [c for c in table.columns
+            if not all(abs(v - table[c].iloc[0]) <= rtol * max(abs(table[c].iloc[0]), 1.0) for v in table[c])]
+
+
+def write_condition_table_csv(problem: PetabProblem, path: str | Path, columns: dict[str, str],
+                              labels: dict[str, dict[str, str]] | None = None) -> pd.DataFrame:
+    """The compact per-condition table a PyAntiGen ``Experiment.py`` loops over.
+
+    ``columns`` maps a column of :func:`effective_condition_values` to the name written (``{"Total_Pop": "Total_Pop",
+    "Unquarantined_Infected(0)": "U0"}``); ``labels`` adds columns derived from the condition id, as
+    ``{"region": {"model1_Wuhan_Stage_I": "Wuhan", ...}}``.
+    """
+    eff = effective_condition_values(problem)
+    out = eff[list(columns)].rename(columns=columns)
+    for name, mapping in (labels or {}).items():
+        out.insert(0, name, [mapping[c] for c in out.index])
+    out.insert(0, "condition", out.index)
+    out.to_csv(path, index=False, float_format="%.12g")
+    return out
+
+
+def write_long_data_csv(problem: PetabProblem, path: str | Path, observable: str, column: str,
+                        condition_column: str = "condition") -> pd.DataFrame:
+    """One observable's measurements as rows of (condition, time, value): the data of several conditions in one file."""
+    m = problem.measurements
+    m = m[m["observableId"] == observable]
+    out = pd.DataFrame({condition_column: m["simulationConditionId"].values, "time": m["time"].values,
+                        column: m["measurement"].values})
+    out.to_csv(path, index=False, float_format="%.12g")
+    return out

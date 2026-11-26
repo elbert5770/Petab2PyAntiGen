@@ -1,0 +1,10 @@
+compartment Population := V_Population
+
+substanceOnly species Confirmed_Infected_Population in Population
+substanceOnly species Quarantined_Infected_Population in Population
+substanceOnly species Susceptible_Population in Population
+substanceOnly species Unquarantined_Infected_Population in Population
+
+Infection_Population : Susceptible_Population -> Unquarantined_Infected_Population; alpha * (Susceptible_Population/V_Population) * (Unquarantined_Infected_Population/V_Population) / Total_Pop * V_Population
+Quarantine_Population : Unquarantined_Infected_Population -> Quarantined_Infected_Population; gamma_1 * (Unquarantined_Infected_Population/V_Population) * V_Population
+Confirmation_Population : Quarantined_Infected_Population -> Confirmed_Infected_Population; beta * (Quarantined_Infected_Population/V_Population) * V_Population

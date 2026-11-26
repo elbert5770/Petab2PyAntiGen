@@ -14,3 +14,11 @@ def zheng_petab():
     if not (d / "problem.yaml").exists():
         pytest.skip(f"PEtab Zheng_PNAS2012 not found at {d} (set PETAB_BENCHMARK_DIR)")
     return d
+
+
+@pytest.fixture(scope="session")
+def zhao_petab():
+    d = BENCHMARK / "problems" / "Zhao_QuantBiol2020" / "v1"
+    if not (d / "problem.yaml").exists():
+        pytest.skip(f"PEtab Zhao_QuantBiol2020 not found at {d} (set PETAB_BENCHMARK_DIR)")
+    return d

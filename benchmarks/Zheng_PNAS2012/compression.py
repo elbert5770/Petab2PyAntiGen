@@ -18,7 +18,7 @@ import tempfile
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
+ROOT = HERE.parent.parent
 sys.path.insert(0, str(ROOT))
 
 from petab2pyantigen.compression import (Size, class_range, function_range, measure, measure_text,  # noqa: E402

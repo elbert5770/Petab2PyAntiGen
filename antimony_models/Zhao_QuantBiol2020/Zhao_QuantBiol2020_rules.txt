@@ -1,0 +1,3 @@
+alpha := R * gamma_1
+beta := gamma_2 + (1 - gamma_2) * sigma
+Cumulative_Infected := Unquarantined_Infected_Population + Quarantined_Infected_Population + Confirmed_Infected_Population

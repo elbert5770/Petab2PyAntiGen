@@ -47,12 +47,12 @@ Everything PEtab states besides the SBML, against the PyAntiGen files that say t
 | PEtab | bytes | lines | gzip | PyAntiGen | bytes | code lines | gzip | bytes ratio |
 | --- | ---: | ---: | ---: | --- | ---: | ---: | ---: | ---: |
 | parameters (nominal values, bounds, scale, estimate) | 2,659 | 47 | 791 | `Optimizer_settings.py` + `_parameters.csv` | 4,324 | 98 | 1,543 | 1.63 |
-| observables and noise model | 5,187 | 16 | 327 | `Loss_config.py` + the `Observables` class | 1,943 | 27 | 649 | 0.37 |
+| observables and noise model | 5,187 | 16 | 327 | `Loss_config.py` + the `Observables` class | 2,775 | 36 | 767 | 0.53 |
 | conditions, pre-equilibration | 71 | 3 | 74 | `Events.py` + `Solver_settings.py` | 2,052 | 25 | 567 | 28.90 |
 | measurements | 4,587 | 61 | 523 | `data/*.csv` + `Data.py` | 1,457 | 14 | 489 | 0.32 |
-| problem definition (what is simulated, what is fitted) | 253 | 13 | 142 | `Experiment.py` + three small hooks | 2,621 | 47 | 846 | 10.36 |
+| problem definition (what is simulated, what is fitted) | 253 | 13 | 142 | `Experiment.py` + three small hooks | 2,459 | 38 | 735 | 9.72 |
 | visualizations | 2,037 | 16 | 328 | `Plots.py` | 1,326 | 27 | 633 | 0.65 |
-| **total** | **14,794** | **156** | **2,185** | | **13,723** | **238** | **4,727** | **0.93** |
+| **total** | **14,794** | **156** | **2,185** | | **14,393** | **238** | **4,734** | **0.97** |
 
 On top of that, PyAntiGen needs a fixed harness (`AntiGen_paths.py`, `Model_run.py`, `Model_generate.py`: 8,130 bytes, 140 code lines) that is the same for every model and has no PEtab counterpart.
 
@@ -62,15 +62,15 @@ A good deal of PyAntiGen's problem statement is structure that a model does not 
 
 | statement | where | code lines |
 | --- | --- | ---: |
-| the 15 observables and their noise model | `Loss_config.py`: `Zheng_loss_config` | 9 |
+| the 15 observables and their noise model | `Loss_config.py`: `Zheng_loss_config` | 10 |
 | the observables' formulas (fractions of total H3) | the `Observables` class | 7 |
 | which parameters are fitted, from where, on what scale, within what bounds | `Optimizer_settings.py`: `_build_Zheng_fit` | 21 |
 | the experiment: pre-equilibrate, switch dilution off, observe 25 h | `Solver_settings.py`: `solver_settings_Zheng`; `Events.py`: `Zheng_event` | 7 |
 | which data belong to the experiment | `Data.py`: `load_Zheng_data` | 4 |
 
-Together 48 code lines, against 156 lines in PEtab's tables. The rest of PyAntiGen's 238 code lines is framework (the `Optimization` and `Experiment` dataclasses, the solver factory, backend settings, plot code, empty hooks) and things PEtab cannot say at all (optimizer choice, solver tolerances, a second loss for Levenberg-Marquardt).
+Together 49 code lines, against 156 lines in PEtab's tables. The rest of PyAntiGen's 238 code lines is framework (the `Optimization` and `Experiment` dataclasses, the solver factory, backend settings, plot code, empty hooks) and things PEtab cannot say at all (optimizer choice, solver tolerances, a second loss for Levenberg-Marquardt).
 
 ## Summary
 
 * **Model.** The module is 31x smaller than PEtab's SBML in bytes (8x after gzip, which already removes the SBML's repetition) and 3.5x smaller than the Antimony it generates (1.9x after gzip). The generated Antimony is as long as Tellurium's: nothing is gained in the Antimony itself, only in the text a person writes. The module does not change as the system grows while the SBML grows with the reactions (194x the module at a 12 x 12 lattice).
-* **Estimation problem.** In bytes it is 0.93x PEtab's tables (13,723 against 14,794): no real saving, because PEtab's tables are compact for one condition and 15 observables and PyAntiGen's problem files carry framework structure. The statements themselves are 48 code lines against 156 table lines: the 15 observables are one loop, the fitted parameters come from the model's own rate-constant helper, and a different sigma model or optimizer is a one-key change. Conditions are where PEtab is clearly more compact (one 71-byte table against the solver blocks and an event).
+* **Estimation problem.** In bytes it is 0.97x PEtab's tables (14,393 against 14,794): no real saving, because PEtab's tables are compact for one condition and 15 observables and PyAntiGen's problem files carry framework structure. The statements themselves are 49 code lines against 156 table lines: the 15 observables are one loop, the fitted parameters come from the model's own rate-constant helper, and a different sigma model or optimizer is a one-key change. Conditions are where PEtab is clearly more compact (one 71-byte table against the solver blocks and an event).

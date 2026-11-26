@@ -1,0 +1,7 @@
+Parameter,Value,Units,Comment
+V_Population,1.0,,volume of the (single) compartment
+Total_Pop,9010000,,set per replicate (Update_parameters.py)
+R,4.7092,,set per replicate: reproduction number
+gamma_1,0.063,,set per replicate: rate of quarantine
+gamma_2,0.05,,set per replicate: rate of confirmation
+sigma,0.0,,PEtab's fixed sigma (a fraction of quarantined people that is confirmed at once)
