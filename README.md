@@ -111,6 +111,7 @@ same footing whatever engine produced them:
 ```bash
 benchmarks/Zheng_PNAS2012/run_all_fits.sh   # WSL/Linux: the fits (about 15 minutes in total), writes benchmarks/Zheng_PNAS2012/fits/*.json
 python benchmarks/compare_fits.py --problem Zheng_PNAS2012   # any platform: writes COMPARISON.md and comparison.png there
+python benchmarks/plot_fits.py --problem Zheng_PNAS2012      # writes fits.png there: every route's final fit over the data
 ```
 
 * **`benchmarks/Zheng_PNAS2012/COMPARISON.md`** is the table (evaluations, wall-clock, NLL under the PEtab reference, how far the
