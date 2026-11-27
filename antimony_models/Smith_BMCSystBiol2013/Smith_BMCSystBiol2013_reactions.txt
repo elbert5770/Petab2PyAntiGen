@@ -1,0 +1,411 @@
+compartment Cellsurface := V_Cellsurface
+compartment Cytoplasm := V_Cytoplasm
+compartment Dnabound := V_Dnabound
+compartment Nucleus := V_Nucleus
+
+substanceOnly species AS160_Cytoplasm in Cytoplasm
+substanceOnly species AS160_P_Cytoplasm in Cytoplasm
+substanceOnly species Akt_Cytoplasm in Cytoplasm
+substanceOnly species Akt_P2_Cytoplasm in Cytoplasm
+substanceOnly species DUSP_Cytoplasm in Cytoplasm
+substanceOnly species DUSP_ox_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus in Nucleus
+substanceOnly species Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm in Cytoplasm
+substanceOnly species Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound in Dnabound
+substanceOnly species Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus in Nucleus
+substanceOnly species GLUT4_Cellsurface in Cellsurface
+substanceOnly species GLUT4_Cytoplasm in Cytoplasm
+substanceOnly species GSH_Cytoplasm in Cytoplasm
+substanceOnly species GSSG_Cytoplasm in Cytoplasm
+substanceOnly species IKK_Cytoplasm in Cytoplasm
+substanceOnly species IKK_P_Cytoplasm in Cytoplasm
+substanceOnly species IRS1_Cytoplasm in Cytoplasm
+substanceOnly species IRS1_PolySerP_Cytoplasm in Cytoplasm
+substanceOnly species IRS1_TyrP_Cytoplasm in Cytoplasm
+substanceOnly species IRS1_TyrP_PI3K_Cytoplasm in Cytoplasm
+substanceOnly species IRS1_TyrP_PolySerP_Cytoplasm in Cytoplasm
+substanceOnly species InR_Cellsurface in Cellsurface
+substanceOnly species InR_Cytoplasm in Cytoplasm
+substanceOnly species Ins_2_InR_P_Cellsurface in Cellsurface
+substanceOnly species Ins_2_InR_P_Cytoplasm in Cytoplasm
+substanceOnly species Ins_InR_Cellsurface in Cellsurface
+substanceOnly species Ins_InR_P_Cellsurface in Cellsurface
+substanceOnly species Ins_InR_P_Cytoplasm in Cytoplasm
+substanceOnly species JNK_Cytoplasm in Cytoplasm
+substanceOnly species JNK_P_Cytoplasm in Cytoplasm
+substanceOnly species NOX_Cytoplasm in Cytoplasm
+substanceOnly species NOX_deact_Cytoplasm in Cytoplasm
+substanceOnly species NOX_inact_Cytoplasm in Cytoplasm
+substanceOnly species PI345P3_Cytoplasm in Cytoplasm
+substanceOnly species PI3K_Cytoplasm in Cytoplasm
+substanceOnly species PIP2_Cytoplasm in Cytoplasm
+substanceOnly species PKC_Cytoplasm in Cytoplasm
+substanceOnly species PKC_P_Cytoplasm in Cytoplasm
+substanceOnly species PTEN_Cytoplasm in Cytoplasm
+substanceOnly species PTEN_ox_Cytoplasm in Cytoplasm
+substanceOnly species PTP1B_Cytoplasm in Cytoplasm
+substanceOnly species PTP1B_ox_Cytoplasm in Cytoplasm
+substanceOnly species RNA_InR_Cytoplasm in Cytoplasm
+substanceOnly species RNA_InR_Nucleus in Nucleus
+substanceOnly species RNA_SOD2_Cytoplasm in Cytoplasm
+substanceOnly species RNA_SOD2_Nucleus in Nucleus
+substanceOnly species ROS_Cytoplasm in Cytoplasm
+substanceOnly species SOD2_Cytoplasm in Cytoplasm
+
+R1f : InR_Cellsurface -> Ins_InR_Cellsurface; k1 * Ins * (V_Cellsurface * (InR_Cellsurface/V_Cellsurface))
+R1r : Ins_InR_Cellsurface -> InR_Cellsurface; kminus1 * (V_Cellsurface * (Ins_InR_Cellsurface/V_Cellsurface))
+R2 : Ins_InR_Cellsurface -> Ins_InR_P_Cellsurface; k3 * (V_Cellsurface * (Ins_InR_Cellsurface/V_Cellsurface))
+R3f : Ins_InR_P_Cellsurface -> Ins_2_InR_P_Cellsurface; k2 * Ins * (V_Cellsurface * (Ins_InR_P_Cellsurface/V_Cellsurface))
+R3r : Ins_2_InR_P_Cellsurface -> Ins_InR_P_Cellsurface; kminus2 * (V_Cellsurface * (Ins_2_InR_P_Cellsurface/V_Cellsurface))
+R4 : Ins_InR_P_Cellsurface -> InR_Cellsurface; kminus3 * (V_Cytoplasm * (PTP1B_Cytoplasm/V_Cytoplasm)) * (V_Cellsurface * (Ins_InR_P_Cellsurface/V_Cellsurface))
+R5f : InR_Cellsurface -> InR_Cytoplasm; k4 * (V_Cellsurface * (InR_Cellsurface/V_Cellsurface))
+R5r : InR_Cytoplasm -> InR_Cellsurface; kminus4 * (V_Cytoplasm * (InR_Cytoplasm/V_Cytoplasm))
+R6f : Ins_2_InR_P_Cellsurface -> Ins_2_InR_P_Cytoplasm; k4prime * (V_Cellsurface * (Ins_2_InR_P_Cellsurface/V_Cellsurface))
+R6r : Ins_2_InR_P_Cytoplasm -> Ins_2_InR_P_Cellsurface; kminus4prime * (V_Cytoplasm * (Ins_2_InR_P_Cytoplasm/V_Cytoplasm))
+R7f : Ins_InR_P_Cellsurface -> Ins_InR_P_Cytoplasm; k4prime * (V_Cellsurface * (Ins_InR_P_Cellsurface/V_Cellsurface))
+R7r : Ins_InR_P_Cytoplasm -> Ins_InR_P_Cellsurface; kminus4prime * (V_Cytoplasm * (Ins_InR_P_Cytoplasm/V_Cytoplasm))
+R10 : Ins_2_InR_P_Cytoplasm -> InR_Cytoplasm; k6 * (V_Cytoplasm * (PTP1B_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (Ins_2_InR_P_Cytoplasm/V_Cytoplasm))
+R11 : Ins_InR_P_Cytoplasm -> InR_Cytoplasm; k6 * (V_Cytoplasm * (PTP1B_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (Ins_InR_P_Cytoplasm/V_Cytoplasm))
+R12f : IRS1_Cytoplasm -> IRS1_TyrP_Cytoplasm; cyto_vol * (k7 * (V_Cytoplasm * (IRS1_Cytoplasm/V_Cytoplasm)) * ((V_Cellsurface * (Ins_2_InR_P_Cellsurface/V_Cellsurface)) + (V_Cellsurface * (Ins_InR_P_Cellsurface/V_Cellsurface))) / IRp)
+R12r : IRS1_TyrP_Cytoplasm -> IRS1_Cytoplasm; cyto_vol * kminus7a * (V_Cytoplasm * (PTP1B_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (IRS1_TyrP_Cytoplasm/V_Cytoplasm))
+R12_a_f : IRS1_Cytoplasm -> IRS1_PolySerP_Cytoplasm; cyto_vol * k2psp * (V_Cytoplasm * (IRS1_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (PKC_P_Cytoplasm/V_Cytoplasm))
+R12_a_r : IRS1_PolySerP_Cytoplasm -> IRS1_Cytoplasm; cyto_vol * kminus7b * PP2A * (V_Cytoplasm * (IRS1_PolySerP_Cytoplasm/V_Cytoplasm))
+R12_b_f : IRS1_TyrP_Cytoplasm -> IRS1_TyrP_PolySerP_Cytoplasm; cyto_vol * k2psp * (V_Cytoplasm * (IRS1_TyrP_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (PKC_P_Cytoplasm/V_Cytoplasm))
+R12_b_r : IRS1_TyrP_PolySerP_Cytoplasm -> IRS1_TyrP_Cytoplasm; cyto_vol * kminus7b * PP2A * (V_Cytoplasm * (IRS1_TyrP_PolySerP_Cytoplasm/V_Cytoplasm))
+R13f : PI3K_Cytoplasm + IRS1_TyrP_Cytoplasm -> IRS1_TyrP_PI3K_Cytoplasm; cyto_vol * k8 * (V_Cytoplasm * (IRS1_TyrP_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (PI3K_Cytoplasm/V_Cytoplasm))
+R13r : IRS1_TyrP_PI3K_Cytoplasm -> PI3K_Cytoplasm + IRS1_TyrP_Cytoplasm; cyto_vol * kminus8 * (V_Cytoplasm * (IRS1_TyrP_PI3K_Cytoplasm/V_Cytoplasm))
+R50f : -> IRS1_Cytoplasm; k_irs1_basal_syn
+R50r1 : IRS1_Cytoplasm ->; k_irs1_basal_degr * (V_Cytoplasm * (IRS1_Cytoplasm/V_Cytoplasm))
+R50r2 : IRS1_TyrP_Cytoplasm ->; k_irs1_basal_degr * (V_Cytoplasm * (IRS1_TyrP_Cytoplasm/V_Cytoplasm))
+R50r3 : IRS1_PolySerP_Cytoplasm ->; k_irs1_polyserp_degr * (V_Cytoplasm * (IRS1_PolySerP_Cytoplasm/V_Cytoplasm))
+R50r4 : IRS1_TyrP_PolySerP_Cytoplasm ->; k_irs1_polyserp_degr * (V_Cytoplasm * (IRS1_TyrP_PolySerP_Cytoplasm/V_Cytoplasm))
+R51f : IRS1_Cytoplasm -> IRS1_PolySerP_Cytoplasm; kcat51 * (V_Cytoplasm * (IRS1_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) / (Km51 + (V_Cytoplasm * (IRS1_Cytoplasm/V_Cytoplasm)))
+R52f : IRS1_Cytoplasm -> IRS1_PolySerP_Cytoplasm; kcat52 * (V_Cytoplasm * (IRS1_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) / (Km52 + (V_Cytoplasm * (IRS1_Cytoplasm/V_Cytoplasm)))
+R14f : PIP2_Cytoplasm -> PI345P3_Cytoplasm; (k9_basal + k9 * (V_Cytoplasm * (IRS1_TyrP_PI3K_Cytoplasm/V_Cytoplasm))) * (V_Cytoplasm * (PIP2_Cytoplasm/V_Cytoplasm))
+R14r : PI345P3_Cytoplasm -> PIP2_Cytoplasm; (kminus9_basal + kminus9 * (V_Cytoplasm * (PTEN_Cytoplasm/V_Cytoplasm))) * (V_Cytoplasm * (PI345P3_Cytoplasm/V_Cytoplasm))
+R16f : Akt_Cytoplasm -> Akt_P2_Cytoplasm; k11 * (V_Cytoplasm * (Akt_Cytoplasm/V_Cytoplasm)) * piecewise(((V_Cytoplasm * (PI345P3_Cytoplasm/V_Cytoplasm)) - pip3_basal), (V_Cytoplasm * (PI345P3_Cytoplasm/V_Cytoplasm)) > pip3_basal, 0)
+R16r : Akt_P2_Cytoplasm -> Akt_Cytoplasm; kminus11 * PP2A * (V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm))
+R17f : PKC_Cytoplasm -> PKC_P_Cytoplasm; k12 * (V_Cytoplasm * (PKC_Cytoplasm/V_Cytoplasm)) * piecewise(((V_Cytoplasm * (PI345P3_Cytoplasm/V_Cytoplasm)) - pip3_basal), (V_Cytoplasm * (PI345P3_Cytoplasm/V_Cytoplasm)) > pip3_basal, 0)
+R17r : PKC_P_Cytoplasm -> PKC_Cytoplasm; kminus12 * PP2A * (V_Cytoplasm * (PKC_P_Cytoplasm/V_Cytoplasm))
+R16a_f : AS160_Cytoplasm -> AS160_P_Cytoplasm; kr16a * (V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (AS160_Cytoplasm/V_Cytoplasm))
+R16a_r : AS160_P_Cytoplasm -> AS160_Cytoplasm; kminusr16a * PP2A * (V_Cytoplasm * (AS160_P_Cytoplasm/V_Cytoplasm))
+R20f : GLUT4_Cytoplasm -> GLUT4_Cellsurface; (k13_basal + k13 * (V_Cytoplasm * (AS160_P_Cytoplasm/V_Cytoplasm))) * (V_Cytoplasm * (GLUT4_Cytoplasm/V_Cytoplasm))
+R20r : GLUT4_Cellsurface -> GLUT4_Cytoplasm; kminus13 * (V_Cellsurface * (GLUT4_Cellsurface/V_Cellsurface))
+R30f : PTP1B_Cytoplasm -> PTP1B_ox_Cytoplasm; k30f * (V_Cytoplasm * (PTP1B_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (ROS_Cytoplasm/V_Cytoplasm))
+R30r : PTP1B_ox_Cytoplasm -> PTP1B_Cytoplasm; k30r * (V_Cytoplasm * (PTP1B_ox_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (GSH_Cytoplasm/V_Cytoplasm))
+R31f : PTEN_Cytoplasm -> PTEN_ox_Cytoplasm; k31f * (V_Cytoplasm * (PTEN_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (ROS_Cytoplasm/V_Cytoplasm))
+R31r : PTEN_ox_Cytoplasm -> PTEN_Cytoplasm; k31r * (V_Cytoplasm * (PTEN_ox_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (GSH_Cytoplasm/V_Cytoplasm))
+R34f : NOX_inact_Cytoplasm -> NOX_Cytoplasm; k34f * (V_Cytoplasm * (NOX_inact_Cytoplasm/V_Cytoplasm)) * Ins
+R34r1 : NOX_Cytoplasm -> NOX_deact_Cytoplasm; k34r1 * (V_Cytoplasm * (NOX_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (NOX_Cytoplasm/V_Cytoplasm))
+R34r2 : NOX_Cytoplasm -> NOX_inact_Cytoplasm; k34r2 * (V_Cytoplasm * (NOX_Cytoplasm/V_Cytoplasm))
+R34r3 : NOX_deact_Cytoplasm -> NOX_inact_Cytoplasm; k34r3 * (V_Cytoplasm * (NOX_deact_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (NOX_deact_Cytoplasm/V_Cytoplasm))
+R35f : -> ROS_Cytoplasm; k35f * (V_Cytoplasm * (NOX_Cytoplasm/V_Cytoplasm))
+R35r : ROS_Cytoplasm ->; k35r * (V_Cytoplasm * (ROS_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (SOD2_Cytoplasm/V_Cytoplasm))
+R36f : -> ROS_Cytoplasm; k36f * Mt
+R37f : -> ROS_Cytoplasm; ros_perm * membrane_area * extracellular_ROS
+R37r : ROS_Cytoplasm ->; ros_perm * membrane_area * (V_Extracellular / V_Cytoplasm) * (V_Cytoplasm * (ROS_Cytoplasm/V_Cytoplasm))
+R38f : GSH_Cytoplasm -> GSSG_Cytoplasm; k38f * (V_Cytoplasm * (GSH_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (ROS_Cytoplasm/V_Cytoplasm))
+R38r : GSSG_Cytoplasm -> GSH_Cytoplasm; k38r * (V_Cytoplasm * (GSSG_Cytoplasm/V_Cytoplasm))
+R42f : JNK_Cytoplasm -> JNK_P_Cytoplasm; k42f * alpha_ox * (V_Cytoplasm * (JNK_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (ROS_Cytoplasm/V_Cytoplasm)) * indicator_jnk
+R42r : JNK_P_Cytoplasm -> JNK_Cytoplasm; k42r * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (DUSP_Cytoplasm/V_Cytoplasm)) * indicator_jnk
+R43f : IKK_Cytoplasm -> IKK_P_Cytoplasm; k43f * (V_Cytoplasm * (IKK_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (ROS_Cytoplasm/V_Cytoplasm)) * indicator_jnk
+R43r : IKK_P_Cytoplasm -> IKK_Cytoplasm; k43r * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (DUSP_Cytoplasm/V_Cytoplasm)) * indicator_jnk
+R32f : DUSP_Cytoplasm -> DUSP_ox_Cytoplasm; k32f * (V_Cytoplasm * (DUSP_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (ROS_Cytoplasm/V_Cytoplasm)) * indicator_jnk
+R32r : DUSP_ox_Cytoplasm -> DUSP_Cytoplasm; k32r * (V_Cytoplasm * (DUSP_ox_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (GSH_Cytoplasm/V_Cytoplasm)) * indicator_jnk
+Foxo_synthesis : -> Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm; E2F1 * kfoxo_synth * indicator_foxo
+Foxo_cn_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm -> Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * ktr_cn * indicator_foxo
+Foxo_nc_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus -> Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus/V_Nucleus)) * ktr_nc * indicator_foxo
+Foxo_nd_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus -> Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus/V_Nucleus)) * ktr_nd * indicator_foxo
+Foxo_dn_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound -> Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_on_Cytoplasm_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm -> Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_on_Cytoplasm_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm -> Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_on_Cytoplasm_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm -> Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_ub_Cytoplasm_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm -> Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * SCF * kub * indicator_foxo
+Foxo_Pa_on_Nucleus_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus -> Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus/V_Nucleus)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_on_Nucleus_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus -> Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus/V_Nucleus)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_on_Nucleus_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus -> Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus/V_Nucleus)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_ub_Nucleus_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus -> Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus/V_Nucleus)) * SCF * kub * indicator_foxo
+Foxo_Pa_on_Dnabound_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound -> Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_on_Dnabound_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound -> Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_on_Dnabound_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound -> Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_ub_Dnabound_0000 : Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound -> Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) * SCF * kub * indicator_foxo
+Foxo_cn_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm -> Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * ktr_cn * indicator_foxo
+Foxo_nc_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus -> Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus/V_Nucleus)) * ktr_nc * indicator_foxo
+Foxo_nd_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus -> Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus/V_Nucleus)) * ktr_nd * indicator_foxo
+Foxo_dn_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound -> Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_on_Cytoplasm_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm -> Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_on_Cytoplasm_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm -> Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_on_Cytoplasm_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm -> Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_Pa_on_Nucleus_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus -> Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus/V_Nucleus)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_on_Nucleus_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus -> Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus/V_Nucleus)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_on_Nucleus_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus -> Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus/V_Nucleus)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_Pa_on_Dnabound_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound -> Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound/V_Dnabound)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_on_Dnabound_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound -> Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound/V_Dnabound)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_on_Dnabound_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound -> Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound/V_Dnabound)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_degradation_0001 : Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm ->; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * Proteasome * kdeg * indicator_foxo
+Foxo_cn_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm -> Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pe_cn * indicator_foxo
+Foxo_nc_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus -> Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus/V_Nucleus)) * ktr_nc * f_Pe_nc * indicator_foxo
+Foxo_nd_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus -> Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus/V_Nucleus)) * ktr_nd * indicator_foxo
+Foxo_dn_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound -> Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_on_Cytoplasm_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm -> Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_on_Cytoplasm_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm -> Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_off_Cytoplasm_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm -> Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_ub_Cytoplasm_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm -> Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * SCF * kub * indicator_foxo
+Foxo_Pa_on_Nucleus_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus -> Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus/V_Nucleus)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_on_Nucleus_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus -> Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus/V_Nucleus)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_off_Nucleus_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus -> Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_ub_Nucleus_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus -> Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus/V_Nucleus)) * SCF * kub * indicator_foxo
+Foxo_Pa_on_Dnabound_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound -> Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_on_Dnabound_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound -> Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_off_Dnabound_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound -> Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_ub_Dnabound_0010 : Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound -> Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) * SCF * kub * indicator_foxo
+Foxo_cn_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm -> Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pe_cn * indicator_foxo
+Foxo_nc_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus -> Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus/V_Nucleus)) * ktr_nc * f_Pe_nc * indicator_foxo
+Foxo_nd_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus -> Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus/V_Nucleus)) * ktr_nd * indicator_foxo
+Foxo_dn_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound -> Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_on_Cytoplasm_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm -> Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_on_Cytoplasm_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm -> Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_off_Cytoplasm_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm -> Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pa_on_Nucleus_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus -> Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus/V_Nucleus)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_on_Nucleus_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus -> Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus/V_Nucleus)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_off_Nucleus_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus -> Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pa_on_Dnabound_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound -> Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound/V_Dnabound)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_on_Dnabound_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound -> Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound/V_Dnabound)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_off_Dnabound_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound -> Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_degradation_0011 : Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm ->; (V_Cytoplasm * (Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * Proteasome * kdeg * indicator_foxo
+Foxo_cn_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm -> Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pd_cn * indicator_foxo
+Foxo_nc_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus -> Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus/V_Nucleus)) * ktr_nc * f_Pd_nc * indicator_foxo
+Foxo_nd_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus -> Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus/V_Nucleus)) * ktr_nd * indicator_foxo
+Foxo_dn_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound -> Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_on_Cytoplasm_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm -> Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_off_Cytoplasm_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm -> Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_on_Cytoplasm_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm -> Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_ub_Cytoplasm_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm -> Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * SCF * kub * f_Pd_ub * indicator_foxo
+Foxo_Pa_on_Nucleus_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus -> Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus/V_Nucleus)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_off_Nucleus_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus -> Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_on_Nucleus_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus -> Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus/V_Nucleus)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_ub_Nucleus_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus -> Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus/V_Nucleus)) * SCF * kub * f_Pd_ub * indicator_foxo
+Foxo_Pa_on_Dnabound_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound -> Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_off_Dnabound_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound -> Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_on_Dnabound_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound -> Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_ub_Dnabound_0100 : Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound -> Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) * SCF * kub * f_Pd_ub * indicator_foxo
+Foxo_cn_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm -> Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pd_cn * indicator_foxo
+Foxo_nc_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus -> Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus/V_Nucleus)) * ktr_nc * f_Pd_nc * indicator_foxo
+Foxo_nd_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus -> Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus/V_Nucleus)) * ktr_nd * indicator_foxo
+Foxo_dn_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound -> Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_on_Cytoplasm_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm -> Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_off_Cytoplasm_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm -> Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_on_Cytoplasm_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm -> Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_Pa_on_Nucleus_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus -> Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus/V_Nucleus)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_off_Nucleus_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus -> Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_on_Nucleus_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus -> Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus/V_Nucleus)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_Pa_on_Dnabound_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound -> Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound/V_Dnabound)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_off_Dnabound_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound -> Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_on_Dnabound_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound -> Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound/V_Dnabound)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_degradation_0101 : Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm ->; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * Proteasome * kdeg * indicator_foxo
+Foxo_cn_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm -> Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pe_cn * f_Pd_cn * indicator_foxo
+Foxo_nc_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus -> Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus/V_Nucleus)) * ktr_nc * f_Pe_nc * f_Pd_nc * indicator_foxo
+Foxo_nd_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus -> Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus/V_Nucleus)) * ktr_nd * indicator_foxo
+Foxo_dn_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound -> Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_on_Cytoplasm_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm -> Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_off_Cytoplasm_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm -> Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_off_Cytoplasm_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm -> Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_ub_Cytoplasm_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm -> Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * SCF * kub * f_Pd_ub * indicator_foxo
+Foxo_Pa_on_Nucleus_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus -> Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus/V_Nucleus)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_off_Nucleus_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus -> Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_off_Nucleus_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus -> Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_ub_Nucleus_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus -> Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus/V_Nucleus)) * SCF * kub * f_Pd_ub * indicator_foxo
+Foxo_Pa_on_Dnabound_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound -> Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_off_Dnabound_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound -> Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_off_Dnabound_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound -> Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_ub_Dnabound_0110 : Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound -> Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) * SCF * kub * f_Pd_ub * indicator_foxo
+Foxo_cn_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm -> Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pe_cn * f_Pd_cn * indicator_foxo
+Foxo_nc_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus -> Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus/V_Nucleus)) * ktr_nc * f_Pe_nc * f_Pd_nc * indicator_foxo
+Foxo_nd_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus -> Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus/V_Nucleus)) * ktr_nd * indicator_foxo
+Foxo_dn_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound -> Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_on_Cytoplasm_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm -> Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_off_Cytoplasm_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm -> Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_off_Cytoplasm_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm -> Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pa_on_Nucleus_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus -> Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus/V_Nucleus)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_off_Nucleus_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus -> Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_off_Nucleus_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus -> Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pa_on_Dnabound_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound -> Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound/V_Dnabound)) * ((V_Cytoplasm * (Akt_P2_Cytoplasm/V_Cytoplasm)) + SGK) * kkin_Pa * indicator_foxo
+Foxo_Pd_off_Dnabound_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound -> Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_off_Dnabound_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound -> Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_degradation_0111 : Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm ->; (V_Cytoplasm * (Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * Proteasome * kdeg * indicator_foxo
+Foxo_cn_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm -> Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pa_cn * indicator_foxo
+Foxo_nc_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus -> Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus/V_Nucleus)) * ktr_nc * f_Pa_nc * indicator_foxo
+Foxo_nd_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus -> Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus/V_Nucleus)) * ktr_nd * f_Pa_nd * indicator_foxo
+Foxo_dn_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound -> Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_off_Cytoplasm_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm -> Foxo1_Pa0_Pd0_Pe0_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_on_Cytoplasm_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm -> Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_on_Cytoplasm_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm -> Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_ub_Cytoplasm_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm -> Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * SCF * kub * f_Pa_ub * indicator_foxo
+Foxo_Pa_off_Nucleus_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus -> Foxo1_Pa0_Pd0_Pe0_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_on_Nucleus_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus -> Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus/V_Nucleus)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_on_Nucleus_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus -> Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus/V_Nucleus)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_ub_Nucleus_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus -> Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus/V_Nucleus)) * SCF * kub * f_Pa_ub * indicator_foxo
+Foxo_Pa_off_Dnabound_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound -> Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_on_Dnabound_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound -> Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_on_Dnabound_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound -> Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_ub_Dnabound_1000 : Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound -> Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) * SCF * kub * f_Pa_ub * indicator_foxo
+Foxo_cn_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm -> Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pa_cn * indicator_foxo
+Foxo_nc_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus -> Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus/V_Nucleus)) * ktr_nc * f_Pa_nc * indicator_foxo
+Foxo_nd_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus -> Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus/V_Nucleus)) * ktr_nd * f_Pa_nd * indicator_foxo
+Foxo_dn_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound -> Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_off_Cytoplasm_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm -> Foxo1_Pa0_Pd0_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_on_Cytoplasm_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm -> Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_on_Cytoplasm_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm -> Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_Pa_off_Nucleus_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus -> Foxo1_Pa0_Pd0_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_on_Nucleus_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus -> Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus/V_Nucleus)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_on_Nucleus_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus -> Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus/V_Nucleus)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_Pa_off_Dnabound_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound -> Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_on_Dnabound_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound -> Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound/V_Dnabound)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_on_Dnabound_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound -> Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound/V_Dnabound)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_degradation_1001 : Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm ->; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * Proteasome * kdeg * indicator_foxo
+Foxo_cn_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm -> Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pe_cn * f_Pa_cn * indicator_foxo
+Foxo_nc_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus -> Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus/V_Nucleus)) * ktr_nc * f_Pe_nc * f_Pa_nc * indicator_foxo
+Foxo_nd_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus -> Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus/V_Nucleus)) * ktr_nd * f_Pa_nd * indicator_foxo
+Foxo_dn_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound -> Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_off_Cytoplasm_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm -> Foxo1_Pa0_Pd0_Pe1_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_on_Cytoplasm_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm -> Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_off_Cytoplasm_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm -> Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_ub_Cytoplasm_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm -> Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * SCF * kub * f_Pa_ub * indicator_foxo
+Foxo_Pa_off_Nucleus_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus -> Foxo1_Pa0_Pd0_Pe1_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_on_Nucleus_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus -> Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus/V_Nucleus)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_off_Nucleus_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus -> Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_ub_Nucleus_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus -> Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus/V_Nucleus)) * SCF * kub * f_Pa_ub * indicator_foxo
+Foxo_Pa_off_Dnabound_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound -> Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_on_Dnabound_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound -> Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_off_Dnabound_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound -> Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_ub_Dnabound_1010 : Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound -> Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) * SCF * kub * f_Pa_ub * indicator_foxo
+Foxo_cn_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm -> Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pe_cn * f_Pa_cn * indicator_foxo
+Foxo_nc_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus -> Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus/V_Nucleus)) * ktr_nc * f_Pe_nc * f_Pa_nc * indicator_foxo
+Foxo_nd_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus -> Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus/V_Nucleus)) * ktr_nd * f_Pa_nd * indicator_foxo
+Foxo_dn_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound -> Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_off_Cytoplasm_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm -> Foxo1_Pa0_Pd0_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_on_Cytoplasm_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm -> Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_off_Cytoplasm_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm -> Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pa_off_Nucleus_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus -> Foxo1_Pa0_Pd0_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_on_Nucleus_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus -> Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus/V_Nucleus)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_off_Nucleus_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus -> Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pa_off_Dnabound_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound -> Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_on_Dnabound_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound -> Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound/V_Dnabound)) * (V_Cytoplasm * (IKK_P_Cytoplasm/V_Cytoplasm)) * by_ikk_phos_factor * kkin_Pd * indicator_foxo
+Foxo_Pe_off_Dnabound_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound -> Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_degradation_1011 : Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm ->; (V_Cytoplasm * (Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * Proteasome * kdeg * indicator_foxo
+Foxo_cn_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm -> Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pd_cn * f_Pa_cn * indicator_foxo
+Foxo_nc_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus -> Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus/V_Nucleus)) * ktr_nc * f_Pd_nc * f_Pa_nc * indicator_foxo
+Foxo_nd_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus -> Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus/V_Nucleus)) * ktr_nd * f_Pa_nd * indicator_foxo
+Foxo_dn_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound -> Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_off_Cytoplasm_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm -> Foxo1_Pa0_Pd1_Pe0_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_off_Cytoplasm_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm -> Foxo1_Pa1_Pd0_Pe0_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_on_Cytoplasm_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm -> Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_ub_Cytoplasm_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm -> Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm/V_Cytoplasm)) * SCF * kub * f_Pd_ub * f_Pa_ub * indicator_foxo
+Foxo_Pa_off_Nucleus_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus -> Foxo1_Pa0_Pd1_Pe0_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_off_Nucleus_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus -> Foxo1_Pa1_Pd0_Pe0_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_on_Nucleus_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus -> Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus/V_Nucleus)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_ub_Nucleus_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus -> Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus/V_Nucleus)) * SCF * kub * f_Pd_ub * f_Pa_ub * indicator_foxo
+Foxo_Pa_off_Dnabound_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound -> Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_off_Dnabound_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound -> Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_on_Dnabound_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound -> Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_ub_Dnabound_1100 : Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound -> Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) * SCF * kub * f_Pd_ub * f_Pa_ub * indicator_foxo
+Foxo_cn_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm -> Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pd_cn * f_Pa_cn * indicator_foxo
+Foxo_nc_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus -> Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus/V_Nucleus)) * ktr_nc * f_Pd_nc * f_Pa_nc * indicator_foxo
+Foxo_nd_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus -> Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus/V_Nucleus)) * ktr_nd * f_Pa_nd * indicator_foxo
+Foxo_dn_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound -> Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_off_Cytoplasm_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm -> Foxo1_Pa0_Pd1_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_off_Cytoplasm_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm -> Foxo1_Pa1_Pd0_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_on_Cytoplasm_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm -> Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_Pa_off_Nucleus_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus -> Foxo1_Pa0_Pd1_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_off_Nucleus_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus -> Foxo1_Pa1_Pd0_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_on_Nucleus_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus -> Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus/V_Nucleus)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_Pa_off_Dnabound_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound -> Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_off_Dnabound_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound -> Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_on_Dnabound_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound -> Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound/V_Dnabound)) * (V_Cytoplasm * (JNK_P_Cytoplasm/V_Cytoplasm)) * by_jnk_phos_factor * kkin_Pe * indicator_foxo
+Foxo_degradation_1101 : Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm ->; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm/V_Cytoplasm)) * Proteasome * kdeg * indicator_foxo
+Foxo_cn_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm -> Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pe_cn * f_Pd_cn * f_Pa_cn * indicator_foxo
+Foxo_nc_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus -> Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus/V_Nucleus)) * ktr_nc * f_Pe_nc * f_Pd_nc * f_Pa_nc * indicator_foxo
+Foxo_nd_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus -> Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus/V_Nucleus)) * ktr_nd * f_Pa_nd * indicator_foxo
+Foxo_dn_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound -> Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_off_Cytoplasm_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm -> Foxo1_Pa0_Pd1_Pe1_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_off_Cytoplasm_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm -> Foxo1_Pa1_Pd0_Pe1_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_off_Cytoplasm_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm -> Foxo1_Pa1_Pd1_Pe0_pUb0_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_ub_Cytoplasm_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm -> Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe1_pUb0_Cytoplasm/V_Cytoplasm)) * SCF * kub * f_Pd_ub * f_Pa_ub * indicator_foxo
+Foxo_Pa_off_Nucleus_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus -> Foxo1_Pa0_Pd1_Pe1_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_off_Nucleus_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus -> Foxo1_Pa1_Pd0_Pe1_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_off_Nucleus_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus -> Foxo1_Pa1_Pd1_Pe0_pUb0_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_ub_Nucleus_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus -> Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe1_pUb0_Nucleus/V_Nucleus)) * SCF * kub * f_Pd_ub * f_Pa_ub * indicator_foxo
+Foxo_Pa_off_Dnabound_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound -> Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_off_Dnabound_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound -> Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_off_Dnabound_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound -> Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_ub_Dnabound_1110 : Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound -> Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) * SCF * kub * f_Pd_ub * f_Pa_ub * indicator_foxo
+Foxo_cn_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm -> Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * ktr_cn * f_Pe_cn * f_Pd_cn * f_Pa_cn * indicator_foxo
+Foxo_nc_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus -> Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus/V_Nucleus)) * ktr_nc * f_Pe_nc * f_Pd_nc * f_Pa_nc * indicator_foxo
+Foxo_nd_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus -> Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus/V_Nucleus)) * ktr_nd * f_Pa_nd * indicator_foxo
+Foxo_dn_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound -> Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound/V_Dnabound)) * ktr_dn * indicator_foxo
+Foxo_Pa_off_Cytoplasm_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm -> Foxo1_Pa0_Pd1_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_off_Cytoplasm_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm -> Foxo1_Pa1_Pd0_Pe1_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_off_Cytoplasm_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm -> Foxo1_Pa1_Pd1_Pe0_pUb1_Cytoplasm; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * PP2A * kdephos * indicator_foxo
+Foxo_Pa_off_Nucleus_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus -> Foxo1_Pa0_Pd1_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_off_Nucleus_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus -> Foxo1_Pa1_Pd0_Pe1_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_off_Nucleus_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus -> Foxo1_Pa1_Pd1_Pe0_pUb1_Nucleus; (V_Nucleus * (Foxo1_Pa1_Pd1_Pe1_pUb1_Nucleus/V_Nucleus)) * PP2A * kdephos * indicator_foxo
+Foxo_Pa_off_Dnabound_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound -> Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pd_off_Dnabound_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound -> Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_Pe_off_Dnabound_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound -> Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound; (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound/V_Dnabound)) * PP2A * kdephos * indicator_foxo
+Foxo_degradation_1111 : Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm ->; (V_Cytoplasm * (Foxo1_Pa1_Pd1_Pe1_pUb1_Cytoplasm/V_Cytoplasm)) * Proteasome * kdeg * indicator_foxo
+InR_transcription : -> RNA_InR_Nucleus; ((V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound/V_Dnabound))) * ktranscr_InR * indicator_foxo
+InR_basal_transcription : -> RNA_InR_Nucleus; kbasal_InR * indicator_foxo
+InR_mRNA_export : RNA_InR_Nucleus -> RNA_InR_Cytoplasm; (V_Nucleus * (RNA_InR_Nucleus/V_Nucleus)) * kexp * indicator_foxo
+InR_mRNA_degradation : RNA_InR_Cytoplasm ->; (V_Cytoplasm * (RNA_InR_Cytoplasm/V_Cytoplasm)) * kmdeg * indicator_foxo
+InR_translation : -> InR_Cytoplasm; (V_Cytoplasm * (RNA_InR_Cytoplasm/V_Cytoplasm)) * ktransl_InR * indicator_foxo
+InR_degradation : InR_Cytoplasm ->; (V_Cytoplasm * (InR_Cytoplasm/V_Cytoplasm)) * kpdeg_InR * indicator_foxo
+SOD2_transcription : -> RNA_SOD2_Nucleus; ((V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd0_Pe0_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd0_Pe1_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd1_Pe0_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa0_Pd1_Pe1_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd0_Pe0_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd0_Pe1_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd1_Pe0_pUb1_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb0_Dnabound/V_Dnabound)) + (V_Dnabound * (Foxo1_Pa1_Pd1_Pe1_pUb1_Dnabound/V_Dnabound))) * ktranscr_SOD2 * indicator_foxo
+SOD2_basal_transcription : -> RNA_SOD2_Nucleus; kbasal_SOD2 * indicator_foxo
+SOD2_mRNA_export : RNA_SOD2_Nucleus -> RNA_SOD2_Cytoplasm; (V_Nucleus * (RNA_SOD2_Nucleus/V_Nucleus)) * kexp * indicator_foxo
+SOD2_mRNA_degradation : RNA_SOD2_Cytoplasm ->; (V_Cytoplasm * (RNA_SOD2_Cytoplasm/V_Cytoplasm)) * kmdeg * indicator_foxo
+SOD2_translation : -> SOD2_Cytoplasm; (V_Cytoplasm * (RNA_SOD2_Cytoplasm/V_Cytoplasm)) * ktransl_SOD2 * indicator_foxo
+SOD2_degradation : SOD2_Cytoplasm ->; (V_Cytoplasm * (SOD2_Cytoplasm/V_Cytoplasm)) * kpdeg_SOD2 * indicator_foxo

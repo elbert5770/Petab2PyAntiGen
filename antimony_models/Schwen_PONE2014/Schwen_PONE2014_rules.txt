@@ -1,0 +1,7 @@
+observable_IR1 := log10(scale * (IR1_ExtracellularMedium + IR1in_ExtracellularMedium + offset))
+observable_IR2 := log10(scale * (IR2_ExtracellularMedium + IR2in_ExtracellularMedium + offset))
+observable_IRsum := log10(scale * (0.605 * IR1_ExtracellularMedium + 0.395 * IR2_ExtracellularMedium + 0.605 * IR1in_ExtracellularMedium + 0.395 * IR2in_ExtracellularMedium + offset))
+observable_Insulin_nExpID1 := log10(offset_nExpID1 + scaleElisa_nExpID1 * (Ins_ExtracellularMedium + InsulinFragments_ExtracellularMedium * fragments) / ((Ins_ExtracellularMedium + InsulinFragments_ExtracellularMedium * fragments) / km_nExpID1 + 1))
+observable_Insulin_nExpID2 := log10(offset_nExpID2 + scaleElisa_nExpID2 * (Ins_ExtracellularMedium + InsulinFragments_ExtracellularMedium * fragments) / ((Ins_ExtracellularMedium + InsulinFragments_ExtracellularMedium * fragments) / km_nExpID2 + 1))
+observable_Insulin_nExpID3 := log10(offset_nExpID3 + scaleElisa_nExpID3 * (Ins_ExtracellularMedium + InsulinFragments_ExtracellularMedium * fragments) / ((Ins_ExtracellularMedium + InsulinFragments_ExtracellularMedium * fragments) / km_nExpID3 + 1))
+observable_Insulin_nExpID4 := log10(offset_nExpID4 + scaleElisa_nExpID4 * (Ins_ExtracellularMedium + InsulinFragments_ExtracellularMedium * fragments) / ((Ins_ExtracellularMedium + InsulinFragments_ExtracellularMedium * fragments) / km_nExpID4 + 1))

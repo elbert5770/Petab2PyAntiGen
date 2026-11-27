@@ -239,3 +239,87 @@ as the reference, so the conversion is held to the SBML and `conditions.tsv`; th
 fit, so that is not quite converged; L-BFGS-B on AMICI, PyAntiGen's and PEtab straight through, takes 19-26 s; Nelder-Mead on RoadRunner
 needs 4,455 evaluations (41 s). A cold PyAntiGen AMICI run includes compiling the model (about three minutes here), which a warm run
 does not.
+
+## Smith_BMCSystBiol2013
+
+Insulin signalling, oxidative stress and FOXO1 in an adipocyte (Smith et al., BMC Systems Biology 2013): 133 species, 367 reactions,
+36 conditions (insulin dose-response, an insulin time course, H2O2 with and without insulin, FOXO1 and MnSOD after H2O2), 62
+measurements of nine observables, every sigma declared as 1. The largest of the problems, and the first whose model is the compression.
+
+* `antimony_modules/Signaling/insulin_ros_foxo_Smith_BMCSystBiol2013.py`: four classes. The FOXO1 network is 16 modification states
+  (Pa, Pd, Pe, pUb) in cytoplasm, nucleus and DNA-bound, 48 species from one loop; PEtab's ~150 FOXO1 rate constants are twelve
+  numbers, a base rate and a factor per modification (`ktr_cn`, `f_Pe_cn`, ...). 313 reactions after merging the two Pa kinases and
+  the transcription from 16 states. A species no reaction changes (`PP2A`, `SGK`, `E2F1`, the boundary species `Ins`,
+  `extracellular_ROS`) is a parameter; the conditions are the five columns of `data/Smith_BMCSystBiol2013_conditions.csv`.
+* The SBML's three insulin-pulse events are not simulated: every condition's last measurement is at or before its `t_ins`, and the second
+  pulse is at 2880 min (`test_no_event_can_change_a_measured_value`).
+* PyAntiGen reads a species in a rate law as a concentration; Smith's laws are amounts, so `amounts()` writes `V_Compartment * X`.
+
+```powershell
+cd problems\Smith_BMCSystBiol2013
+python Model_run.py --simulate Smith                 # figure in results/Smith_BMCSystBiol2013/
+python Model_run.py --optimize Smith --no-fit        # the objective at PEtab's parameters: NLL 888141 (half the sum of squares)
+python Model_run.py --optimize SmithLM               # WSL: Levenberg-Marquardt, every sigma declared
+```
+
+Checked against PEtab (`tests/test_smith.py`): observables to ~5e-9 relative at the nominal and at random parameters; the engine's
+objective equals the reference; **all 92 time derivatives equal the SBML's at random states (1e-11)**, which tests every reaction
+including the rebuilt FOXO1 rates. This `simulations.tsv` is a real simulation (the reference matches it to 9e-8).
+
+`benchmarks/Smith_BMCSystBiol2013/` holds the comparison, `fits.png` and the size comparison. The PEtab nominal point is not a fit
+(NLL 888,141); the routes reach 23,500 to 29,000. From start 1 PyAntiGen's LM and PEtab straight through AMICI end at the same
+optimum (24,535.4 and 24,535.6), LM in 107 evaluations and 11 minutes against 1,002 and 95 minutes. From start 2 PEtab straight
+through AMICI converges to 24,985, PyAntiGen's LM reaches 23,542 (AMICI confirms it; the RoadRunner reference cannot integrate that
+point) and then fails to take a step, so the engine reports it as not converged. PyAntiGen's L-BFGS-B stops at once from start 1
+(zero iterations, although its gradient equals AMICI's exact one) and ends at 28,868 from start 2; Nelder-Mead on RoadRunner is at
+27,782 after 3,000 evaluations (58 min). The AMICI routes need a looser solver tolerance with a retry ladder: the `piecewise` that switches
+Akt and PKC on is an AMICI event, and where PIP3 crosses its threshold CVODE sometimes returns "a root after reinitialization"
+(status -99), knife-edge in the parameters.
+
+**The smoothed Akt/PKC switch.** `SMITH_PIP3_SWITCH_EPS=0.1` (an environment variable read by `Model_generate.py`; unset gives PEtab's
+model) writes the switch as `(x + sqrt(x^2 + eps^2)) / 2` instead of `piecewise(x, x > 0, 0)`: no AMICI event, observables within
+1e-4 relative and the objective within 0.4 of PEtab's (of ~2.4e4), but not PEtab's model, so the fits are scored on the exact
+model. It removes the integration failures (no analytic-gradient failure in four fits, against 15 in one) and
+changes the PyAntiGen results: L-BFGS-B no longer stalls (24,536.9 from start 1, 24,954.2 from start 2) and LM converges from both
+starts, to 24,533.1 and to **20,865.2, the lowest objective of any route** (the exact model's LM, from the same start, failed at
+23,542). Wall times in the comparison are inflated: the four smoothed fits ran at once. Generate it with
+`$env:SMITH_PIP3_SWITCH_EPS = "0.1"; python Model_generate.py`, and regenerate without it (the repository keeps the exact files).
+
+## Schwen_PONE2014
+
+Insulin binding, internalisation and degradation in isolated hepatocytes (Schwen et al., PLoS One 2014): two receptor subpopulations (low and
+high binding), 14 reactions, 19 conditions (insulin doses), 286 measurements of four observables, all **on a log10 scale** (`observableTransformation`),
+**two estimated noise parameters**, six **log-normal priors**, and four ELISA series that each have their own offset, scale and saturation constant.
+The smallest model so far, and the one that needed the most from the tooling.
+
+* `antimony_modules/Signaling/insulin_receptor_Schwen_PONE2014.py`: one loop over the receptor type (binding, dissociation, internalisation,
+  recycling, degradation; the high-binding receptors have `ka1 * ka2fold`, `kd1 * kd2fold`, `kin2`, `kout2`), unspecific binding, and the
+  observables as log10 rules, one `observable_Insulin_nExpID<k>` per ELISA series. 12 reactions (the two `Uptake` totals nobody observes are dropped).
+* The data file holds the log10 of the measurements (`tests/test_schwen.py` checks that `10 **` it is PEtab's table).
+* The receptor numbers are initial amounts of fitted parameters (`Rec1 = ini_R1`, `Rec2 = ini_R1 * ini_R2fold`, in `_InitialConditions.csv`); a hook sets
+  them for RoadRunner, AMICI differentiates the initial assignment. **This found a PyAntiGen bug**: AMICI 1.1.0's `get_initial_state_sensitivities()` puts
+  every parameter's entries in the first parameter's slot, so the gradient with respect to `ini_R1` and `ini_R2fold` was zero and the first parameter's
+  was wrong. `Scaled_amici.py` now reads them from a run that stops at t0 (regression test `tests/engine/test_amici_initial_sensitivity.py` in PyAntiGen).
+* Two blocks of profiled sigma, each shared across observables and conditions (`sigma_pool` + `sigma_block`): `2 block(s), 286 points, k=28 + 2 = 30`, PEtab's count.
+* PEtab's priors go to the engine's `analytic_gradient["priors"]` (AMICI routes only; RoadRunner's Nelder-Mead optimizes the data term). All fits are scored with PEtab's objective, priors included.
+
+```powershell
+cd problems\Schwen_PONE2014
+python Model_run.py --simulate Schwen                # figure in results/Schwen_PONE2014/
+python Model_run.py --optimize Schwen --no-fit       # RoadRunner objective at PEtab's parameters: NLL -454.867 (the priors add 0.414)
+python Model_run.py --optimize SchwenAMICI           # WSL: L-BFGS-B with the exact gradient and the priors
+```
+
+Checked against PEtab (`tests/test_schwen.py`): each log10 observable to ~1e-9 at the nominal and at random parameters (the random sets move `ini_R1`
+and `ini_R2fold`); all nine time derivatives equal the SBML's at random states; the engine's objective equals the reference; and, in WSL, the AMICI gradient of all 28
+parameters (priors included) equals finite differences of the reference to ~1e-8. This `simulations.tsv` is a real simulation (9.7e-8).
+
+All routes reach PEtab's optimum. PEtab's published parameters score NLL -454.453 (they are a fit: the priors included, nothing is lower). From three starts PEtab straight
+through AMICI ends at -454.452 (+0.0006 to +0.0014) in 190 to 303 evaluations and 68 to 108 s; PyAntiGen's AMICI L-BFGS-B at -454.4465 to -454.4513 (+0.0016 to +0.0064) in 96 to 253 evaluations and 52 to 130 s (0.51 s per evaluation against 0.36 s; the paths differ from start to start, so the evaluation counts do). A gradient call is 0.43 s: AMICI 0.41 s (about 0.24 integrating, the rest turning its result vectors into numpy), the loss and chain rule 5 ms, and 18 ms to check that the fitted values are the model parameters. That check replaced re-deriving the map by central differences on RoadRunner (0.25 s: 57 replays of each of the 19 models per call): `ParameterReplay.jacobian` now replays once at a point moved by 10 % and, when every fitted name is a model parameter and no hook moves another one, uses the selection matrix; a hook that does, or a name only a hook understands, falls back to the differences (tests in PyAntiGen `tests/engine/test_parameter_replay.py`). Reading the data file once per call in the project's `Loss_config` had cost another 0.3 s until it was cached. Nelder-Mead on RoadRunner spends its 20,000
+evaluations (48 min) and stops 0.26 and 0.46 NLL short, with parameters up to 3.5 decades away: without a gradient and without the priors, 28 parameters are slow. No integration failures,
+no retries needed, no stalled line search: a smooth model. Both AMICI routes and PEtab's published point agree to 0.004 in the objective, which is the tolerance of L-BFGS-B.
+The fits ran against PyAntiGen at a9a9483 plus the initial-sensitivity fix.
+
+`benchmarks/Schwen_PONE2014/` holds the comparison, `fits.png` and the size comparison. No Levenberg-Marquardt route: PEtab estimates two noise parameters and least squares needs every sigma declared.
+Compression: the definition is 2.2x smaller than SBML + conditions in bytes but 3.1x larger than the clean Tellurium Antimony (a 12-reaction model is too small for a loop to pay);
+the measurement table (36 kB of repeated ids) becomes an 11 kB data file.

@@ -17,13 +17,14 @@ import sys
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(ROOT))
 
 from petab2pyantigen.petab_reader import load_petab                          # noqa: E402
-from petab2pyantigen.reference import nominal_values, simulate_petab           # noqa: E402
+from petab2pyantigen.reference import _is_number, _transform, nominal_values, prior_terms, simulate_petab   # noqa: E402
 
 def _noise_ids(problem) -> set:
     """Every parameter id the measurement table names in ``noiseParameters``."""
@@ -53,7 +54,7 @@ def noise_names(problem) -> set:
     return _noise_ids(problem) - set(known_sigmas(problem)) | ({"sigma"} if "sigma" in _noise_ids(problem) else set())
 
 
-def score(problem, params: dict) -> dict:
+def score(problem, params: dict, bounded: bool = True) -> dict:
     """PEtab reference objective at ``params``: SSE, ML sigma, NLL in the engine's convention and as -log L.
 
     Measurements that share a noise parameter share a sigma, taken at its maximum-likelihood value (Zheng: one for all 60
@@ -61,27 +62,51 @@ def score(problem, params: dict) -> dict:
     nominal value. NLL is ``sum_g (n_g/2) ln(SSE_g/n_g)`` over the estimated groups plus ``n ln sigma + SSE/(2 sigma^2)`` over
     the declared ones: the engine's concentrated NLL. -log L adds the constants (``N/2 ln 2 pi`` plus ``N/2`` for each
     estimated group's points).
+
+    An estimated noise parameter has PEtab's bounds: where its maximum-likelihood value lies outside them it sits on the bound
+    (``sigma_at_bound`` names it); ``bounded=False`` leaves it profiled, which is what the engine does.
     """
     noise = noise_names(problem)
     known = known_sigmas(problem)
     sims = simulate_petab(problem, {k: v for k, v in params.items() if k not in noise})
-    key = sims["noiseParameters"].astype(str) if "noiseParameters" in sims else "sigma"
-    nll, sse_total, sigmas = 0.0, 0.0, []
+    key = sims["noiseParameters"].astype(str) if "noiseParameters" in sims else pd.Series("sigma", index=sims.index)
+    # an observable whose noiseFormula is a number (Smith: 1.0 everywhere) has a declared sigma, not a profiled one
+    for obs, formula in problem.observables["noiseFormula"].items():
+        if _is_number(formula):
+            key = key.where(sims["observableId"] != obs, f"constant={float(formula)}")
+            known[f"constant={float(formula)}"] = float(formula)
+    # observables measured on a log scale (Schwen: log10) are compared there: residuals of the transformed values
+    kind = sims["observableId"].map(lambda o: str(problem.observables.loc[o].get("observableTransformation", "lin")))
+    sims = sims.assign(res=[_transform(m, k) - _transform(y, k) for m, y, k in zip(sims["measurement"], sims["simulation"], kind)],
+                       jac=[(math.log(m) if k == "log" else math.log(m * math.log(10)) if k == "log10" else 0.0)
+                            for m, k in zip(sims["measurement"], kind)])
+    table = problem.parameters
+    nll, sse_total, sigmas, clipped = 0.0, 0.0, [], []
     for g, rows in sims.groupby(key):
-        sse = float(((rows["measurement"] - rows["simulation"]) ** 2).sum())
+        sse = float((rows["res"] ** 2).sum())
         n = len(rows)
         if g in known:                          # declared sigma: the plain Gaussian term, n ln(sigma) + SSE / (2 sigma^2)
             sg = known[g]
             nll += n * math.log(sg) + sse / (2 * sg * sg)
             sigmas.append(sg)
-        else:                                   # estimated: profiled out, (n/2) ln(SSE/n)
-            nll += 0.5 * n * math.log(sse / n)
-            sigmas.append(math.sqrt(sse / n))
+        else:                                   # estimated: profiled out, (n/2) ln(SSE/n), unless PEtab's bounds on it bind
+            sg = math.sqrt(sse / n)
+            lo, hi = ((float(table.loc[g, "lowerBound"]), float(table.loc[g, "upperBound"])) if g in table.index else (0.0, math.inf))
+            if bounded and not lo <= sg <= hi:  # the optimum is outside the box PEtab allows: sigma sits on the bound
+                sg = min(max(sg, lo), hi)
+                clipped.append(g)
+                nll += n * math.log(sg) + sse / (2 * sg * sg) - 0.5 * n
+            else:
+                nll += 0.5 * n * math.log(sse / n)
+            sigmas.append(sg)
         sse_total += sse
+    prior_nll, prior_const = prior_terms(problem, params)
+    nll += prior_nll
     n_all = len(sims)
     return {"sse": sse_total, "sigma_ml": sigmas[0] if len(sigmas) == 1 else float(np.median(sigmas)), "n_sigmas": len(sigmas),
-            "nll": nll, "neg_log_l": nll + 0.5 * n_all * math.log(2 * math.pi)
-            + 0.5 * sum(len(r) for g, r in sims.groupby(key) if g not in known)}
+            "nll": nll, "sigma_at_bound": clipped, "prior_nll": prior_nll,
+            "neg_log_l": nll + 0.5 * n_all * math.log(2 * math.pi) + float(sims["jac"].sum()) + prior_const
+            + 0.5 * sum(len(r) for g, r in sims.groupby(key) if g not in known and g not in clipped)}
 
 
 def deriv_note(r: dict) -> str:
@@ -142,7 +167,8 @@ def main(argv=None):
         f"PEtab's published parameters score NLL = {base['nll']:.4f} (-log L = {base['neg_log_l']:.4f}; "
         f"{base['n_sigmas']} noise parameter{'s' if base['n_sigmas'] > 1 else ''} at ML, "
         f"{'sigma' if base['n_sigmas'] == 1 else 'median sigma'} = {base['sigma_ml']:.6g}). NLL is in the engine's convention, "
-        "the sum over noise groups of `(n/2) ln(SSE/n)`; -log L adds N/2 (1 + ln 2 pi).",
+        "`(n/2) ln(SSE/n)` for each estimated noise group and `n ln(sigma) + SSE/(2 sigma^2)` for a declared sigma; -log L adds "
+        "N/2 ln 2 pi, and N_est/2 for the points of the estimated groups.",
         "",
         "| route | start | sigma | converged | evals | wall s | s/eval | NLL (PEtab reference) | vs PEtab's | median / max shift in decades | > 0.1 decade |",
         "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: |",

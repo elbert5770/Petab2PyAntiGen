@@ -1,0 +1,10 @@
+Species,InitialCondition,Units,Comment
+Ins_ExtracellularMedium,0.0,,
+Rec1_ExtracellularMedium,ini_R1,,
+Rec2_ExtracellularMedium,ini_R1 * ini_R2fold,,
+IR1_ExtracellularMedium,0.0,,
+IR2_ExtracellularMedium,0.0,,
+IR1in_ExtracellularMedium,0.0,,
+IR2in_ExtracellularMedium,0.0,,
+InsulinFragments_ExtracellularMedium,0.0,,
+BoundUnspec_ExtracellularMedium,0.0,,

@@ -23,7 +23,7 @@ import numpy as np
 import pandas as pd
 
 from .petab_reader import load_petab
-from .reference import log_likelihood, nominal_values, simulate_petab
+from .reference import _transform, log_likelihood, nominal_values, simulate_petab
 
 _DRIVER = r'''
 import json, os, pickle, sys
@@ -76,12 +76,17 @@ def run_pyantigen(project_dir: str | Path, experiment: str, parameters: dict[str
 
 
 def compare(petab_dir, project_dir, experiment, parameters=None, observable_name=None, strip_prefix="",
-            replicate_of=None) -> dict:
+            replicate_of=None, column_of=None) -> dict:
     """Max abs/rel difference between PEtab's and PyAntiGen's observables at every measurement.
 
     ``observable_name`` maps a PEtab observable id to the PyAntiGen result column (``{id: column}`` or a callable;
     default: the same name). A PEtab condition is a PyAntiGen replicate: ``replicate_of(condition_id)``, by default the
-    condition id without ``strip_prefix`` (or, with one replicate, that replicate).
+    condition id without ``strip_prefix`` (or, with one replicate, that replicate). ``column_of(row)`` picks the column from the
+    whole measurement row instead (Schwen's four ELISA series are one PEtab observable and four columns, told apart by the row's
+    observableParameters).
+
+    An observable with ``observableTransformation`` log or log10 is compared on its own scale: the PyAntiGen column is expected
+    to hold the transformed value (a log10 rule), as the data do. The log-likelihoods are of the untransformed values, as PEtab's.
     """
     problem = load_petab(petab_dir)
     ref = simulate_petab(problem, parameters)
@@ -109,13 +114,17 @@ def compare(petab_dir, project_dir, experiment, parameters=None, observable_name
         i = int(np.argmin(np.abs(res["time"].values - want)))
         if abs(res["time"].values[i] - want) > 1e-6 * max(1.0, abs(want)):
             raise RuntimeError(f"no PyAntiGen output at t = {want} in {label}")
-        got.append(res[column(m["observableId"])].values[i])
+        got.append(res[column_of(m) if column_of else column(m["observableId"])].values[i])
     ref = ref.assign(pyantigen=got)
-    diff = (ref["pyantigen"] - ref["simulation"]).abs()
+    kind = ref["observableId"].map(lambda o: str(problem.observables.loc[o].get("observableTransformation", "lin")))
+    scaled = ref["simulation"].combine(kind, lambda y, k: _transform(y, k))          # PEtab's simulation on the observable's scale
+    diff = (ref["pyantigen"] - scaled).abs()
+    inverse = {"lin": lambda y: y, "log": np.exp, "log10": lambda y: 10.0 ** y}
+    back = pd.Series([inverse[k](y) for y, k in zip(ref["pyantigen"], kind)], index=ref.index)
     return {"n": len(ref), "max_abs": float(diff.max()),
-            "max_rel": float((diff / ref["simulation"].abs().clip(lower=1e-300)).max()),
+            "max_rel": float((diff / scaled.abs().clip(lower=1e-300)).max()),
             "llh_petab": log_likelihood(problem, ref.assign(simulation=ref["simulation"]), parameters),
-            "llh_pyantigen": log_likelihood(problem, ref.assign(simulation=ref["pyantigen"]), parameters),
+            "llh_pyantigen": log_likelihood(problem, ref.assign(simulation=back), parameters),
             "table": ref}
 
 

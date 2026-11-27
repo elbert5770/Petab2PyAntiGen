@@ -38,3 +38,19 @@ def sneyd_petab():
     if not (d / "problem.yaml").exists():
         pytest.skip(f"PEtab Sneyd_PNAS2002 not found at {d} (set PETAB_BENCHMARK_DIR)")
     return d
+
+
+@pytest.fixture(scope="session")
+def smith_petab():
+    d = BENCHMARK / "problems" / "Smith_BMCSystBiol2013" / "v1"
+    if not (d / "problem.yaml").exists():
+        pytest.skip(f"PEtab Smith_BMCSystBiol2013 not found at {d} (set PETAB_BENCHMARK_DIR)")
+    return d
+
+
+@pytest.fixture(scope="session")
+def schwen_petab():
+    d = BENCHMARK / "problems" / "Schwen_PONE2014" / "v1"
+    if not (d / "problem.yaml").exists():
+        pytest.skip(f"PEtab Schwen_PONE2014 not found at {d} (set PETAB_BENCHMARK_DIR)")
+    return d

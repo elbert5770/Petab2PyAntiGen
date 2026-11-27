@@ -13,6 +13,7 @@ import argparse
 import dataclasses
 import json
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -37,12 +38,17 @@ ROUTE_COLOR = {"pyantigen_amici_lbfgsb": "#2a78d6", "pyantigen_amici_lbfgsb_seed
                "pyantigen_amici_lm": "#6250d6", "pyantigen_amici_lm_seed2": "#6250d6",
                "pyantigen_amici_lm_finite_difference": "#e87ba4",
                "pyantigen_amici_lm_callable_observable": "#eda100", "pyantigen_amici_lm_callable_finite_difference": "#e34948"}
+# the smoothed-switch variant of a route (Smith): the same hue, darker
+ROUTE_COLOR.update({"pyantigen_amici_lm_smooth": "#3b2a9e", "pyantigen_amici_lm_smooth_seed2": "#3b2a9e",
+                    "pyantigen_amici_lbfgsb_smooth": "#14478a", "pyantigen_amici_lbfgsb_smooth_seed2": "#14478a"})
 SPARE = ["#008300", "#52514e", "#8a5a2b"]
 
 
 def dense(problem, params: dict, per_unit: float):
     """Reference simulation on a grid finer than the measurements: one row per (condition, observable, time)."""
-    m = problem.measurements
+    m = problem.measurements.copy()
+    if "preequilibrationConditionId" not in m:               # a problem without pre-equilibration (Smith)
+        m["preequilibrationConditionId"] = np.nan
     extra = []
     for (pre, sim, obs), g in m.groupby(["preequilibrationConditionId", "simulationConditionId", "observableId"],
                                         dropna=False, sort=False):
@@ -57,14 +63,51 @@ def dense(problem, params: dict, per_unit: float):
 
 
 def panel_keys(problem):
-    """Panels: one per simulation condition when each condition has one observable (Zhao), one per observable when there is one
-    condition (Zheng), and one per (condition, observable) otherwise (Weber: observables of very different scales)."""
+    """Panels, each a dict ``conds`` (the conditions drawn), ``obs`` (one observable, or None for all of them), ``xmap`` (None: time on
+    the x axis; else the x value of each condition) and ``title``.
+
+    One per simulation condition when each condition has one observable (Zhao), one per observable when there is one condition
+    (Zheng), one per (condition, observable) otherwise (Weber: observables of very different scales). With many pairs (Smith: 36
+    conditions, mostly measured once) one per observable: a time course if the observable has several times in a condition, else
+    its value against the condition quantity (a dose) that varies the most among the conditions that measure it."""
     m = problem.measurements
     conds = list(dict.fromkeys(m["simulationConditionId"]))
     pairs = list(dict.fromkeys(zip(m["simulationConditionId"], m["observableId"])))
     if len(conds) > 1 and len(pairs) == len(conds):
-        return [(c, None) for c in conds]
-    return pairs
+        return [{"conds": [c], "obs": None, "xmap": None, "title": c.replace("model1_", "").replace("_", " ")} for c in conds]
+    if len(pairs) <= 20:
+        return [{"conds": [c], "obs": o, "xmap": None,
+                 "title": o.replace("observable_", "") if len(conds) == 1 else f"{c.replace('model1_', '')}: {o}"} for c, o in pairs]
+    out = []
+    # one observable measured in several series that differ in their observable parameters (Schwen's four ELISA series, each with its own
+    # offset, scale and saturation constant): one panel per series
+    keys = ["observableId"]
+    if "observableParameters" in m and (m.groupby("observableId")["observableParameters"].nunique() > 1).any():
+        keys.append("observableParameters")
+    for key, g in m.groupby(keys, sort=False):
+        obs, series = (key[0], key[1]) if len(keys) == 2 else (key, None)
+        used = list(dict.fromkeys(g["simulationConditionId"]))
+        suffix = ""
+        if series is not None and m[m["observableId"] == obs]["observableParameters"].nunique() > 1:
+            suffix = " (" + (re.search(r"nExpID\d", str(series)).group(0) if re.search(r"nExpID\d", str(series)) else str(series)) + ")"
+        if g.groupby("simulationConditionId")["time"].nunique().max() > 1:           # a time course (one condition)
+            out.append({"conds": used, "obs": obs, "series": series if suffix else None, "xmap": None,
+                        "title": obs.replace("__", " ").replace("observable_", "") + suffix})
+            continue
+        table = problem.conditions.loc[used].apply(pd.to_numeric, errors="coerce")
+        column = max(table.columns, key=lambda c: table[c].nunique())
+        if len(used) <= 4:                    # a few conditions that differ in several quantities (Smith 3B): one tick each, labelled
+            varying = [c for c in table.columns if table[c].nunique() > 1]
+            labels = ["\n".join(f"{c.replace('extracellular_ROS', 'H2O2')} {table.loc[u, c]:g}" for c in varying) or u for u in used]
+            out.append({"conds": used, "obs": obs, "xmap": {c: i for i, c in enumerate(used)}, "xlabel": "condition",
+                        "ticks": labels, "title": obs.replace("__", " ")})
+        elif table[column].nunique() > 1:
+            out.append({"conds": used, "obs": obs, "xmap": table[column].to_dict(), "xlabel": column,
+                        "title": obs.replace("__", " ")})
+        else:                                                                       # nothing varies: one tick per condition
+            out.append({"conds": used, "obs": obs, "xmap": {c: i for i, c in enumerate(used)}, "xlabel": "condition",
+                        "title": obs.replace("__", " ")})
+    return out
 
 
 def short(route: str) -> str:
@@ -122,26 +165,44 @@ def main(argv=None):
     axes = axes.ravel()
     meas = problem.measurements
     conds_all = list(dict.fromkeys(meas["simulationConditionId"]))
-    for ax, (cond, obs) in zip(axes, panels):
+    for ax, panel in zip(axes, panels):
         ax.set_facecolor(SURFACE)
-        sel = (meas["simulationConditionId"] == cond) & ((meas["observableId"] == obs) if obs else True)
+        obs, xmap = panel["obs"], panel["xmap"]
+        series = panel.get("series")                      # one ELISA series of an observable (None: all of them)
+        sel = meas["simulationConditionId"].isin(panel["conds"]) & ((meas["observableId"] == obs) if obs else True)
+        if series is not None:
+            sel &= meas["observableParameters"] == series
         d = meas[sel]
+        xof = (lambda t: t["time"]) if xmap is None else (lambda t: t["simulationConditionId"].map(xmap))
         for key in ["published"] + order[::-1]:           # worst route first, widest: the best is the thin line on top
             c = curves[key]
-            cs = c[(c["simulationConditionId"] == cond) & ((c["observableId"] == obs) if obs else True)]
-            for _o, g in cs.groupby("observableId"):
-                g = g.sort_values("time")
-                mark = dict(marker="o", markersize=7, markerfacecolor="none") if len(g) == 1 else {}      # one time point: no line to see
+            cs = c[c["simulationConditionId"].isin(panel["conds"]) & ((c["observableId"] == obs) if obs else True)]
+            if series is not None:
+                cs = cs[cs["observableParameters"] == series]
+            for _o, g in (cs.groupby(["observableId", "simulationConditionId"]) if xmap is None else [(None, cs)]):   # one line per condition
+                g = g.assign(_x=xof(g)).sort_values("_x")
+                mark = dict(marker="o", markersize=7, markerfacecolor="none") if len(g) == 1 or xmap is not None else {}   # points, not a line
+                categorical = xmap is not None and panel["xlabel"] == "condition"       # separate conditions: points, no line
                 if key == "published":
-                    ax.plot(g["time"], g["simulation"], color="#8a8985", lw=1.3, ls=(0, (4, 3)), zorder=2, **mark)
+                    ax.plot(g["_x"], g["simulation"], color="#8a8985", lw=1.3, ls="none" if categorical else (0, (4, 3)), zorder=2, **mark)
                 else:
                     rank = order.index(key)
-                    ax.plot(g["time"], g["simulation"], color=colors[key], zorder=3,
+                    ax.plot(g["_x"], g["simulation"], color=colors[key], zorder=3, ls="none" if categorical else "-",
                             lw=1.4 + 1.8 * rank / max(len(order) - 1, 1), **mark)
-        ax.scatter(d["time"], d["measurement"], s=16, color=INK, zorder=5, edgecolor=SURFACE, linewidth=0.6)
-        title = ((obs.replace("observable_", "") if len(conds_all) == 1 else f"{cond.replace('model1_', '')}: {obs}") if obs
-                 else cond.replace("model1_", "").replace("_", " "))
-        ax.set_title(title, loc="left", fontsize=9.5, color=INK)
+        ax.scatter(xof(d), d["measurement"], s=16, color=INK, zorder=5, edgecolor=SURFACE, linewidth=0.6)
+        if xmap is not None and panel["xlabel"] == "condition":
+            ax.set_xticks(range(len(panel["conds"])), panel.get("ticks") or [c.split("__")[-1] for c in panel["conds"]],
+                          fontsize=6.5)
+            ax.set_xlim(-0.5, len(panel["conds"]) - 0.5)
+        elif xmap is not None and (lambda pos: len(pos) > 1 and max(pos) / min(pos) > 100)([v for v in xmap.values() if v > 0]):
+            if min(xmap.values()) > 0:
+                ax.set_xscale("log")
+            else:                                         # a dose of zero is there too (Schwen's IR sum)
+                ax.set_xscale("symlog", linthresh=min(v for v in xmap.values() if v > 0))
+        if (problem.observables["observableTransformation"].reindex([obs]).iloc[0] if obs and "observableTransformation" in problem.observables
+                else "lin") in ("log", "log10"):
+            ax.set_yscale("log")                          # the observable is fitted on a log scale, so it is drawn on one
+        ax.set_title(panel["title"], loc="left", fontsize=9.5, color=INK)
         ax.grid(True, color=GRID, linewidth=0.7)
         ax.set_axisbelow(True)
         ax.tick_params(colors=MUTED, labelsize=8, length=0)
@@ -162,15 +223,17 @@ def main(argv=None):
     else:
         fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(0.5, 0.03), frameon=False, fontsize=8, ncol=2,
                    labelcolor=INK)
-    for ax in axes[:len(panels)]:
-        ax.set_xlabel("time", color=MUTED, fontsize=8, labelpad=2)
+    for ax, panel in zip(axes, panels):
+        if panel.get("xlabel") != "condition":
+            ax.set_xlabel(panel.get("xlabel", "time"), color=MUTED, fontsize=8, labelpad=2)
     fig.suptitle(f"{args.problem}: final fit of every route, re-simulated with PEtab's reference simulator",
                  x=0.01, ha="left", fontsize=12, color=INK)
     fig.text(0.01, 0.005, f"Lower NLL is better; routes within {spread:.2f} NLL of each other overlay. One start per curve, "
              "so routes may end in different optima." if spread < 5 else
-             "Lower NLL is better. One start per curve: routes end in different optima, and the published parameters were "
-             "not fitted with this objective's free noise parameters.", fontsize=8, color=MUTED, va="bottom")
-    fig.tight_layout(rect=[0, 0.035 + (0.11 if long_legend else 0), 1, 0.97])
+             "Lower NLL is better. One start per curve: routes end in different optima" + (
+                 ", and the published parameters were not fitted with this objective's free noise parameters."
+                 if noise_names(problem) - {"sigma"} else ", and the published parameters are PEtab's nominal values, not a fit."), fontsize=8, color=MUTED, va="bottom")
+    fig.tight_layout(rect=[0, 0.035 + (0.025 + 0.018 * math.ceil((len(order) + len(failed) + 2) / 2) if long_legend else 0), 1, 0.97])
     fig.savefig(out / "fits.png", dpi=150, facecolor=SURFACE)
     print("wrote", out / "fits.png")
     for k in order:

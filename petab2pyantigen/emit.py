@@ -23,7 +23,7 @@ import libsbml
 import pandas as pd
 
 from .petab_reader import PetabProblem
-from .reference import nominal_values
+from .reference import _reapply, _set, nominal_values
 
 
 def camel_case(name: str) -> str:
@@ -56,6 +56,8 @@ def assignment_targets(problem: PetabProblem) -> set[str]:
 
 def preequilibration_values(problem: PetabProblem) -> dict[str, float]:
     """Condition overrides that hold while the model equilibrates (the model starts there)."""
+    if "preequilibrationConditionId" not in problem.measurements:      # Smith: every simulation starts from the SBML state
+        return {}
     pre = problem.measurements["preequilibrationConditionId"].dropna().unique()
     out: dict[str, float] = {}
     for cid in pre:
@@ -152,18 +154,18 @@ def effective_condition_values(problem: PetabProblem) -> pd.DataFrame:
     rows = {}
     cond_ids = list(dict.fromkeys(problem.measurements["simulationConditionId"]))
     for cid in cond_ids:
-        r.resetAll()
+        r.resetToOrigin()                   # not resetAll(): it keeps a species override (init(E2F1)) of the previous condition
         for pid in set(params) & set(nominal):
             try:
                 r[pid] = nominal[pid]
             except RuntimeError:                     # an assignment-rule target
                 pass
         row = problem.conditions.loc[cid]
-        for col, val in row.items():
-            if col in ("conditionId", "conditionName") or pd.isna(val):
-                continue
-            r[col] = float(val)
+        cond = {col: float(val) for col, val in row.items() if col not in ("conditionId", "conditionName") and pd.notna(val)}
+        for col, val in cond.items():
+            _set(r, col, val)
         r.reset()
+        _reapply(r, set(params), nominal, cond)
         rows[cid] = {**{p: float(r[p]) for p in params}, **{f"{s}(0)": float(r[s]) for s in species}}
     return pd.DataFrame.from_dict(rows, orient="index")
 

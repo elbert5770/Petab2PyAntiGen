@@ -1,0 +1,24 @@
+compartment ExtracellularMedium := V_ExtracellularMedium
+
+substanceOnly species BoundUnspec_ExtracellularMedium in ExtracellularMedium
+substanceOnly species IR1_ExtracellularMedium in ExtracellularMedium
+substanceOnly species IR1in_ExtracellularMedium in ExtracellularMedium
+substanceOnly species IR2_ExtracellularMedium in ExtracellularMedium
+substanceOnly species IR2in_ExtracellularMedium in ExtracellularMedium
+substanceOnly species Ins_ExtracellularMedium in ExtracellularMedium
+substanceOnly species InsulinFragments_ExtracellularMedium in ExtracellularMedium
+substanceOnly species Rec1_ExtracellularMedium in ExtracellularMedium
+substanceOnly species Rec2_ExtracellularMedium in ExtracellularMedium
+
+Binding1 : Ins_ExtracellularMedium + Rec1_ExtracellularMedium -> IR1_ExtracellularMedium; ka1 * (Ins_ExtracellularMedium/V_ExtracellularMedium) * (Rec1_ExtracellularMedium/V_ExtracellularMedium) * V_ExtracellularMedium
+Dissociation1 : IR1_ExtracellularMedium -> Ins_ExtracellularMedium + Rec1_ExtracellularMedium; kd1 * (IR1_ExtracellularMedium/V_ExtracellularMedium) * V_ExtracellularMedium
+Internalisation1 : IR1_ExtracellularMedium -> IR1in_ExtracellularMedium; kin * (IR1_ExtracellularMedium/V_ExtracellularMedium) * V_ExtracellularMedium
+Recycling1 : IR1in_ExtracellularMedium -> IR1_ExtracellularMedium; kout * (IR1in_ExtracellularMedium/V_ExtracellularMedium) * V_ExtracellularMedium
+Degradation1 : IR1in_ExtracellularMedium -> Rec1_ExtracellularMedium + InsulinFragments_ExtracellularMedium; kout_frag * (IR1in_ExtracellularMedium/V_ExtracellularMedium) * V_ExtracellularMedium
+Binding2 : Ins_ExtracellularMedium + Rec2_ExtracellularMedium -> IR2_ExtracellularMedium; ka1 * ka2fold * (Ins_ExtracellularMedium/V_ExtracellularMedium) * (Rec2_ExtracellularMedium/V_ExtracellularMedium) * V_ExtracellularMedium
+Dissociation2 : IR2_ExtracellularMedium -> Ins_ExtracellularMedium + Rec2_ExtracellularMedium; kd1 * kd2fold * (IR2_ExtracellularMedium/V_ExtracellularMedium) * V_ExtracellularMedium
+Internalisation2 : IR2_ExtracellularMedium -> IR2in_ExtracellularMedium; kin2 * (IR2_ExtracellularMedium/V_ExtracellularMedium) * V_ExtracellularMedium
+Recycling2 : IR2in_ExtracellularMedium -> IR2_ExtracellularMedium; kout2 * (IR2in_ExtracellularMedium/V_ExtracellularMedium) * V_ExtracellularMedium
+Degradation2 : IR2in_ExtracellularMedium -> Rec2_ExtracellularMedium + InsulinFragments_ExtracellularMedium; kout_frag * (IR2in_ExtracellularMedium/V_ExtracellularMedium) * V_ExtracellularMedium
+UnspecificBinding : Ins_ExtracellularMedium -> BoundUnspec_ExtracellularMedium; kon_unspec * (Ins_ExtracellularMedium/V_ExtracellularMedium) * V_ExtracellularMedium
+UnspecificRelease : BoundUnspec_ExtracellularMedium -> Ins_ExtracellularMedium; koff_unspec * (BoundUnspec_ExtracellularMedium/V_ExtracellularMedium) * V_ExtracellularMedium
